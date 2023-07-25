@@ -1,8 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: sec1.proto
 //
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
+// @dart = 2.12
+
+// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -14,25 +19,36 @@ import 'sec1.pbenum.dart';
 export 'sec1.pbenum.dart';
 
 class SessionCmd1 extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionCmd1', createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(2, 'clientVerifyData', $pb.PbFieldType.OY)
+  factory SessionCmd1() => create();
+  SessionCmd1._() : super();
+  factory SessionCmd1.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SessionCmd1.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SessionCmd1', createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'clientVerifyData', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
-  SessionCmd1._() : super();
-  factory SessionCmd1() => create();
-  factory SessionCmd1.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SessionCmd1.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SessionCmd1 clone() => SessionCmd1()..mergeFromMessage(this);
-  SessionCmd1 copyWith(void Function(SessionCmd1) updates) => super.copyWith((message) => updates(message as SessionCmd1));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SessionCmd1 copyWith(void Function(SessionCmd1) updates) => super.copyWith((message) => updates(message as SessionCmd1)) as SessionCmd1;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static SessionCmd1 create() => SessionCmd1._();
   SessionCmd1 createEmptyInstance() => create();
   static $pb.PbList<SessionCmd1> createRepeated() => $pb.PbList<SessionCmd1>();
   @$core.pragma('dart2js:noInline')
   static SessionCmd1 getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SessionCmd1>(create);
-  static SessionCmd1 _defaultInstance;
+  static SessionCmd1? _defaultInstance;
 
   @$pb.TagNumber(2)
   $core.List<$core.int> get clientVerifyData => $_getN(0);
@@ -45,26 +61,37 @@ class SessionCmd1 extends $pb.GeneratedMessage {
 }
 
 class SessionResp1 extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionResp1', createEmptyInstance: create)
-    ..e<$0.Status>(1, 'status', $pb.PbFieldType.OE, defaultOrMaker: $0.Status.Success, valueOf: $0.Status.valueOf, enumValues: $0.Status.values)
-    ..a<$core.List<$core.int>>(3, 'deviceVerifyData', $pb.PbFieldType.OY)
+  factory SessionResp1() => create();
+  SessionResp1._() : super();
+  factory SessionResp1.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SessionResp1.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SessionResp1', createEmptyInstance: create)
+    ..e<$0.Status>(1, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $0.Status.Success, valueOf: $0.Status.valueOf, enumValues: $0.Status.values)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'deviceVerifyData', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
-  SessionResp1._() : super();
-  factory SessionResp1() => create();
-  factory SessionResp1.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SessionResp1.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SessionResp1 clone() => SessionResp1()..mergeFromMessage(this);
-  SessionResp1 copyWith(void Function(SessionResp1) updates) => super.copyWith((message) => updates(message as SessionResp1));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SessionResp1 copyWith(void Function(SessionResp1) updates) => super.copyWith((message) => updates(message as SessionResp1)) as SessionResp1;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static SessionResp1 create() => SessionResp1._();
   SessionResp1 createEmptyInstance() => create();
   static $pb.PbList<SessionResp1> createRepeated() => $pb.PbList<SessionResp1>();
   @$core.pragma('dart2js:noInline')
   static SessionResp1 getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SessionResp1>(create);
-  static SessionResp1 _defaultInstance;
+  static SessionResp1? _defaultInstance;
 
   @$pb.TagNumber(1)
   $0.Status get status => $_getN(0);
@@ -86,25 +113,36 @@ class SessionResp1 extends $pb.GeneratedMessage {
 }
 
 class SessionCmd0 extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionCmd0', createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(1, 'clientPubkey', $pb.PbFieldType.OY)
+  factory SessionCmd0() => create();
+  SessionCmd0._() : super();
+  factory SessionCmd0.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SessionCmd0.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SessionCmd0', createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'clientPubkey', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
-  SessionCmd0._() : super();
-  factory SessionCmd0() => create();
-  factory SessionCmd0.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SessionCmd0.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SessionCmd0 clone() => SessionCmd0()..mergeFromMessage(this);
-  SessionCmd0 copyWith(void Function(SessionCmd0) updates) => super.copyWith((message) => updates(message as SessionCmd0));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SessionCmd0 copyWith(void Function(SessionCmd0) updates) => super.copyWith((message) => updates(message as SessionCmd0)) as SessionCmd0;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static SessionCmd0 create() => SessionCmd0._();
   SessionCmd0 createEmptyInstance() => create();
   static $pb.PbList<SessionCmd0> createRepeated() => $pb.PbList<SessionCmd0>();
   @$core.pragma('dart2js:noInline')
   static SessionCmd0 getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SessionCmd0>(create);
-  static SessionCmd0 _defaultInstance;
+  static SessionCmd0? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<$core.int> get clientPubkey => $_getN(0);
@@ -117,27 +155,38 @@ class SessionCmd0 extends $pb.GeneratedMessage {
 }
 
 class SessionResp0 extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionResp0', createEmptyInstance: create)
-    ..e<$0.Status>(1, 'status', $pb.PbFieldType.OE, defaultOrMaker: $0.Status.Success, valueOf: $0.Status.valueOf, enumValues: $0.Status.values)
-    ..a<$core.List<$core.int>>(2, 'devicePubkey', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(3, 'deviceRandom', $pb.PbFieldType.OY)
+  factory SessionResp0() => create();
+  SessionResp0._() : super();
+  factory SessionResp0.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SessionResp0.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SessionResp0', createEmptyInstance: create)
+    ..e<$0.Status>(1, _omitFieldNames ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: $0.Status.Success, valueOf: $0.Status.valueOf, enumValues: $0.Status.values)
+    ..a<$core.List<$core.int>>(2, _omitFieldNames ? '' : 'devicePubkey', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'deviceRandom', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
-  SessionResp0._() : super();
-  factory SessionResp0() => create();
-  factory SessionResp0.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory SessionResp0.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   SessionResp0 clone() => SessionResp0()..mergeFromMessage(this);
-  SessionResp0 copyWith(void Function(SessionResp0) updates) => super.copyWith((message) => updates(message as SessionResp0));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SessionResp0 copyWith(void Function(SessionResp0) updates) => super.copyWith((message) => updates(message as SessionResp0)) as SessionResp0;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static SessionResp0 create() => SessionResp0._();
   SessionResp0 createEmptyInstance() => create();
   static $pb.PbList<SessionResp0> createRepeated() => $pb.PbList<SessionResp0>();
   @$core.pragma('dart2js:noInline')
   static SessionResp0 getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SessionResp0>(create);
-  static SessionResp0 _defaultInstance;
+  static SessionResp0? _defaultInstance;
 
   @$pb.TagNumber(1)
   $0.Status get status => $_getN(0);
@@ -176,6 +225,11 @@ enum Sec1Payload_Payload {
 }
 
 class Sec1Payload extends $pb.GeneratedMessage {
+  factory Sec1Payload() => create();
+  Sec1Payload._() : super();
+  factory Sec1Payload.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Sec1Payload.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
   static const $core.Map<$core.int, Sec1Payload_Payload> _Sec1Payload_PayloadByTag = {
     20 : Sec1Payload_Payload.sc0,
     21 : Sec1Payload_Payload.sr0,
@@ -183,32 +237,38 @@ class Sec1Payload extends $pb.GeneratedMessage {
     23 : Sec1Payload_Payload.sr1,
     0 : Sec1Payload_Payload.notSet
   };
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Sec1Payload', createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'Sec1Payload', createEmptyInstance: create)
     ..oo(0, [20, 21, 22, 23])
-    ..e<Sec1MsgType>(1, 'msg', $pb.PbFieldType.OE, defaultOrMaker: Sec1MsgType.Session_Command0, valueOf: Sec1MsgType.valueOf, enumValues: Sec1MsgType.values)
-    ..aOM<SessionCmd0>(20, 'sc0', subBuilder: SessionCmd0.create)
-    ..aOM<SessionResp0>(21, 'sr0', subBuilder: SessionResp0.create)
-    ..aOM<SessionCmd1>(22, 'sc1', subBuilder: SessionCmd1.create)
-    ..aOM<SessionResp1>(23, 'sr1', subBuilder: SessionResp1.create)
+    ..e<Sec1MsgType>(1, _omitFieldNames ? '' : 'msg', $pb.PbFieldType.OE, defaultOrMaker: Sec1MsgType.Session_Command0, valueOf: Sec1MsgType.valueOf, enumValues: Sec1MsgType.values)
+    ..aOM<SessionCmd0>(20, _omitFieldNames ? '' : 'sc0', subBuilder: SessionCmd0.create)
+    ..aOM<SessionResp0>(21, _omitFieldNames ? '' : 'sr0', subBuilder: SessionResp0.create)
+    ..aOM<SessionCmd1>(22, _omitFieldNames ? '' : 'sc1', subBuilder: SessionCmd1.create)
+    ..aOM<SessionResp1>(23, _omitFieldNames ? '' : 'sr1', subBuilder: SessionResp1.create)
     ..hasRequiredFields = false
   ;
 
-  Sec1Payload._() : super();
-  factory Sec1Payload() => create();
-  factory Sec1Payload.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Sec1Payload.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   Sec1Payload clone() => Sec1Payload()..mergeFromMessage(this);
-  Sec1Payload copyWith(void Function(Sec1Payload) updates) => super.copyWith((message) => updates(message as Sec1Payload));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Sec1Payload copyWith(void Function(Sec1Payload) updates) => super.copyWith((message) => updates(message as Sec1Payload)) as Sec1Payload;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static Sec1Payload create() => Sec1Payload._();
   Sec1Payload createEmptyInstance() => create();
   static $pb.PbList<Sec1Payload> createRepeated() => $pb.PbList<Sec1Payload>();
   @$core.pragma('dart2js:noInline')
   static Sec1Payload getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Sec1Payload>(create);
-  static Sec1Payload _defaultInstance;
+  static Sec1Payload? _defaultInstance;
 
-  Sec1Payload_Payload whichPayload() => _Sec1Payload_PayloadByTag[$_whichOneof(0)];
+  Sec1Payload_Payload whichPayload() => _Sec1Payload_PayloadByTag[$_whichOneof(0)]!;
   void clearPayload() => clearField($_whichOneof(0));
 
   @$pb.TagNumber(1)
@@ -265,3 +325,6 @@ class Sec1Payload extends $pb.GeneratedMessage {
   SessionResp1 ensureSr1() => $_ensure(4);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

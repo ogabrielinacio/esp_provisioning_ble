@@ -8,7 +8,7 @@ import 'transport.dart';
 class TransportBLE implements ProvTransport {
   final Peripheral peripheral;
   final String serviceUUID;
-  Map<String, String> nuLookup;
+  late final Map<String, String> nuLookup;
   final Map<String, String> lockupTable;
 
   static const PROV_BLE_SERVICE = '021a9004-0382-4aea-bff4-6b3f1c5adfb4';
@@ -22,16 +22,18 @@ class TransportBLE implements ProvTransport {
 
   TransportBLE(this.peripheral,
       {this.serviceUUID = PROV_BLE_SERVICE, this.lockupTable = PROV_BLE_EP}) {
-    nuLookup = new Map<String, String>();
+    nuLookup = {
+      for (var name in lockupTable.keys) 
+      name:  serviceUUID.substring(0, 4) +
+            int.parse(lockupTable[name]!, radix: 16)
+                .toRadixString(16)
+                .padLeft(4, '0') +
+            serviceUUID.substring(8)
 
-    for (var name in lockupTable.keys) {
-      var charsInt = int.parse(lockupTable[name], radix: 16);
-      var serviceHex = charsInt.toRadixString(16).padLeft(4, '0');
-      nuLookup[name] =
-          serviceUUID.substring(0, 4) + serviceHex + serviceUUID.substring(8);
-    }
+    };
   }
 
+  @override
   Future<bool> connect() async {
     bool isConnected = await peripheral.isConnected();
     if (isConnected) {
@@ -43,18 +45,20 @@ class TransportBLE implements ProvTransport {
     return await peripheral.isConnected();
   }
 
-  Future<Uint8List> sendReceive(String epName, Uint8List data) async {
+  @override
+  Future<Uint8List> sendReceive(String? epName, Uint8List? data) async {
     if (data != null){ 
       if( data.length > 0){
-        await peripheral.writeCharacteristic(serviceUUID, nuLookup[epName??""], data, true);
+        await peripheral.writeCharacteristic(serviceUUID, nuLookup[ epName ?? ""]!, data, true);
       }
     }
     CharacteristicWithValue receivedData = await peripheral.readCharacteristic(
-        serviceUUID, nuLookup[epName??""],
+        serviceUUID, nuLookup[ epName ?? ""]!,
         transactionId: 'readCharacteristic');
     return receivedData.value;
   }
 
+  @override
   Future<void> disconnect() async {
     bool check = await peripheral.isConnected();
     if(check){  
@@ -64,6 +68,7 @@ class TransportBLE implements ProvTransport {
     }
   }
 
+  @override
   Future<bool> checkConnect() async {
     return await peripheral.isConnected();
   }

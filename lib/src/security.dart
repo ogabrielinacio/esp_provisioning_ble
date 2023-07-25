@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'proto/dart/session.pb.dart';
+import 'protos/generated/session.pb.dart';
 
 enum SecurityState {
   REQUEST1,
@@ -14,5 +14,5 @@ abstract class ProvSecurity {
 
   Future<Uint8List> decrypt(Uint8List data);
 
-  Future<SessionData> securitySession(SessionData responseData);
+  Future<SessionData?> securitySession(SessionData? responseData);
 }

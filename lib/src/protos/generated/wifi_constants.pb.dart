@@ -1,8 +1,13 @@
-///
+//
 //  Generated code. Do not modify.
 //  source: wifi_constants.proto
 //
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
+// @dart = 2.12
+
+// ignore_for_file: annotate_overrides, camel_case_types
+// ignore_for_file: constant_identifier_names, library_prefixes
+// ignore_for_file: non_constant_identifier_names, prefer_final_fields
+// ignore_for_file: unnecessary_import, unnecessary_this, unused_import
 
 import 'dart:core' as $core;
 
@@ -13,29 +18,40 @@ import 'wifi_constants.pbenum.dart';
 export 'wifi_constants.pbenum.dart';
 
 class WifiConnectedState extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('WifiConnectedState', createEmptyInstance: create)
-    ..aOS(1, 'ip4Addr')
-    ..e<WifiAuthMode>(2, 'authMode', $pb.PbFieldType.OE, defaultOrMaker: WifiAuthMode.Open, valueOf: WifiAuthMode.valueOf, enumValues: WifiAuthMode.values)
-    ..a<$core.List<$core.int>>(3, 'ssid', $pb.PbFieldType.OY)
-    ..a<$core.List<$core.int>>(4, 'bssid', $pb.PbFieldType.OY)
-    ..a<$core.int>(5, 'channel', $pb.PbFieldType.O3)
+  factory WifiConnectedState() => create();
+  WifiConnectedState._() : super();
+  factory WifiConnectedState.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory WifiConnectedState.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'WifiConnectedState', createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'ip4Addr')
+    ..e<WifiAuthMode>(2, _omitFieldNames ? '' : 'authMode', $pb.PbFieldType.OE, defaultOrMaker: WifiAuthMode.Open, valueOf: WifiAuthMode.valueOf, enumValues: WifiAuthMode.values)
+    ..a<$core.List<$core.int>>(3, _omitFieldNames ? '' : 'ssid', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(4, _omitFieldNames ? '' : 'bssid', $pb.PbFieldType.OY)
+    ..a<$core.int>(5, _omitFieldNames ? '' : 'channel', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
-  WifiConnectedState._() : super();
-  factory WifiConnectedState() => create();
-  factory WifiConnectedState.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory WifiConnectedState.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
   WifiConnectedState clone() => WifiConnectedState()..mergeFromMessage(this);
-  WifiConnectedState copyWith(void Function(WifiConnectedState) updates) => super.copyWith((message) => updates(message as WifiConnectedState));
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  WifiConnectedState copyWith(void Function(WifiConnectedState) updates) => super.copyWith((message) => updates(message as WifiConnectedState)) as WifiConnectedState;
+
   $pb.BuilderInfo get info_ => _i;
+
   @$core.pragma('dart2js:noInline')
   static WifiConnectedState create() => WifiConnectedState._();
   WifiConnectedState createEmptyInstance() => create();
   static $pb.PbList<WifiConnectedState> createRepeated() => $pb.PbList<WifiConnectedState>();
   @$core.pragma('dart2js:noInline')
   static WifiConnectedState getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<WifiConnectedState>(create);
-  static WifiConnectedState _defaultInstance;
+  static WifiConnectedState? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get ip4Addr => $_getSZ(0);
@@ -83,3 +99,6 @@ class WifiConnectedState extends $pb.GeneratedMessage {
   void clearChannel() => clearField(5);
 }
 
+
+const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');
+const _omitMessageNames = $core.bool.fromEnvironment('protobuf.omit_message_names');

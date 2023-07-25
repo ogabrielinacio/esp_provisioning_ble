@@ -3,10 +3,10 @@ import 'dart:typed_data';
 
 import 'package:esp_provisioning_ble/src/connection_models.dart';
 
-import 'proto/dart/constants.pbenum.dart';
-import 'proto/dart/session.pb.dart';
-import 'proto/dart/wifi_config.pb.dart';
-import 'proto/dart/wifi_scan.pb.dart';
+import 'protos/generated/constants.pbenum.dart';
+import 'protos/generated/session.pb.dart';
+import 'protos/generated/wifi_config.pb.dart';
+import 'protos/generated/wifi_scan.pb.dart';
 import 'security.dart';
 import 'transport.dart';
 
@@ -14,10 +14,10 @@ class EspProv {
   ProvTransport transport;
   ProvSecurity security;
 
-  EspProv({this.transport, this.security});
+  EspProv({required this.transport, required this.security});
 
   Future<void> establishSession() async {
-    SessionData responseData;
+    SessionData? responseData;
 
     await transport.disconnect();
 
@@ -146,13 +146,13 @@ class EspProv {
     return ret;
   }
 
-  Future<bool> sendWifiConfig({String ssid, String password}) async {
+  Future<bool> sendWifiConfig({required String ssid, required String password}) async {
     var payload = WiFiConfigPayload();
     payload.msg = WiFiConfigMsgType.TypeCmdSetConfig;
 
     var cmdSetConfig = CmdSetConfig();
-    cmdSetConfig.ssid = utf8.encode(ssid ?? '');
-    cmdSetConfig.passphrase = utf8.encode(password ?? '');
+    cmdSetConfig.ssid = utf8.encode(ssid);
+    cmdSetConfig.passphrase = utf8.encode(password);
     payload.cmdSetConfig = cmdSetConfig;
     var reqData = await security.encrypt(payload.writeToBuffer());
     var respData = await transport.sendReceive('prov-config', reqData);
@@ -205,21 +205,23 @@ class EspProv {
       }
       return ConnectionStatus(state: WifiConnectionState.ConnectionFailed);
     }
-
-    return null;
+    return ConnectionStatus(
+      state: WifiConnectionState.ConnectionFailed,
+      failedReason: WifiConnectFailedReason.AuthError,
+    );
   }
 
   Future<Uint8List> sendReceiveCustomData(Uint8List data,
       {int packageSize = 256}) async {
     var i = data.length;
     var offset = 0;
-    List<int> ret = new List<int>(0);
+    List<int> ret =  [];
     while (i > 0) {
       var needToSend = data.sublist(offset, i < packageSize ? i : packageSize);
       var encrypted = await security.encrypt(needToSend);
       var newData = await transport.sendReceive('custom-data', encrypted);
 
-      if (newData.length > 0) {
+      if (newData.isNotEmpty) {
         var decrypted = await security.decrypt(newData);
         ret += List.from(decrypted);
       }
