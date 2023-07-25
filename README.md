@@ -1,6 +1,7 @@
 # esp_provisioning_ble
 
 A new Flutter plugin project.
+This repository is a maintaibable fork from `https://github.com/unicloudvn/esp_provisioning/tree/master`
 
 ## Getting Started
 
