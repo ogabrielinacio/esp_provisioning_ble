@@ -1,7 +1,7 @@
 name: esp_provisioning_ble
 description: A Flutter plugin for provisioning ESP32 modules with Ble
 version: 0.0.1
-homepage:
+homepage: https://github.com/ogabrielinacio/esp_provisioning_ble
 
 environment:
   sdk: '>=3.1.0-331.0.dev <4.0.0'
@@ -28,6 +28,6 @@ flutter:
     platforms:
       android:
         package: com.ogabrielinacio.esp_provisioning_ble
-        pluginClass: EspBleProvisioningPlugin
+        pluginClass: EspProvisioningBlePlugin
       ios:
-        pluginClass: EspBleProvisioningPlugin
+        pluginClass: EspProvisioningBlePlugin
