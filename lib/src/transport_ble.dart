@@ -48,7 +48,7 @@ class TransportBLE implements ProvTransport {
   @override
   Future<Uint8List> sendReceive(String? epName, Uint8List? data) async {
     if (data != null){ 
-      if( data.length > 0){
+      if( data.isNotEmpty){
         await peripheral.writeCharacteristic(serviceUUID, nuLookup[ epName ?? ""]!, data, true);
       }
     }
