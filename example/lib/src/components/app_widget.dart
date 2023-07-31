@@ -1,3 +1,4 @@
+import 'package:example/src/features/ble_screen/view/ble_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:example/src/components/home_screen.dart';
@@ -21,6 +22,7 @@ class AppWidget extends StatelessWidget {
           initialRoute: '/',
           routes: {
             '/': (_) => const HomeScreen(),
+            '/ble': (_) => const BleView(),
           },
         ),);
   }

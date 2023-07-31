@@ -7,12 +7,20 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple,
         centerTitle: true,
-        title: const Text("ESP Ble Provisioning"),
+        title: const Text(
+          "ESP Ble Provisioning",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/ble');
+          },
           child: const Text(
             "Start Provisioning",
           ),
