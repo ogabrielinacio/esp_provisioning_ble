@@ -36,11 +36,10 @@ class LocationPermissionRequestEvent extends BleEvent {}
 class BleReadytoScanEvent extends BleEvent {}
 
 class BleScanningEvent extends BleEvent {
-  String? prefix;
+  final String? prefix;
   BleScanningEvent({this.prefix});
 }
 
-class BleStopScanEvent extends BleEvent {}
 
 class BleRestartingScanEvent extends BleEvent {}
 

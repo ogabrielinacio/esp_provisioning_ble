@@ -1,5 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:example/src/features/ble_screen/bloc/ble_bloc.dart';
+import 'package:example/src/features/shared/scan_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -70,6 +71,14 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
             return Text('location permission unable to determine');
           } else if (state is BleReadytoScan) {
             return Text('ble ready to scan');
+          } else if (state is BleScanCompleted) {
+            return ScanList(items: state.foundedDevices, icon: Icons.bluetooth,
+                  onTap: (String item, BuildContext context) {
+                // BlocProvider.of<BleBloc>(context).add(BleEventStopScanning());
+                // BlocProvider.of<BleWifiBloc>(context)
+                //     .add(BleWifiEventInitial(item));
+                // Navigator.pushNamed(context, '/blePassword');
+              });
           } else if (state is BleScanningError) {
             return Text('ble scan error');
           } else if (state is BleScanCompleted) {

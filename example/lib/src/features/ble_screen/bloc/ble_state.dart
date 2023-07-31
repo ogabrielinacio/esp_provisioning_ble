@@ -29,10 +29,13 @@ class BleReadytoScan extends BleState {}
 
 class BleScanning extends BleState {}
 
-class BleStopScanning extends BleState {}
+class BleStopScan extends BleState {}
 
 class BleScanningError extends BleState {}
 
-class BleScanCompleted extends BleState {}
+class BleScanCompleted extends BleState {
+  final List<String> foundedDevices;
+  BleScanCompleted({required this.foundedDevices});
+}
 
 class BleEmptyList extends BleState {}

@@ -19,6 +19,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
 
   var logger = Logger();
   int? androidSdkVersion;
+  List<String> discoveredDevices = [];
 
   BleBloc() : super(BleInitialState()) {
     on<BleInitialEvent>((event, emit) async {
@@ -162,22 +163,26 @@ class BleBloc extends Bloc<BleEvent, BleState> {
       String prefix = (event.prefix != null) ? event.prefix! : "PROV_";
       emit(BleScanning());
       bleManager.startPeripheralScan().listen((scanResult) {
-        //Scan one peripheral and stop scanning
-        logger.d(
-          "Scanned Peripheral ${scanResult.peripheral.name}, \n RSSI ${scanResult.rssi}",
-        );
         String? bleName = scanResult.peripheral.name;
-        if(bleName != null){
-          if(bleName.contains(prefix)){
-            logger.i("NOICE! :)");
+        logger.d(
+          "Scanned Peripheral $bleName, \n RSSI ${scanResult.rssi}",
+        );
+        if (bleName != null) {
+          if (bleName.contains(prefix)) {
+            if(!discoveredDevices.contains(bleName)){
+              discoveredDevices.add(bleName);
+            }
           }
         }
+        Future.delayed(const Duration(seconds: 8), () {
+          bleManager.stopPeripheralScan();
+          add(BleScanCompletedEvent(devices: discoveredDevices));
+        });
       });
     });
 
-    on<BleStopScanEvent>((event, emit) {
-      emit(BleStopScanning());
-      bleManager.stopPeripheralScan();
+    on<BleScanCompletedEvent>((event, emit) {
+      emit(BleScanCompleted(foundedDevices: event.devices));
     });
   }
 }
