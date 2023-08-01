@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:cryptography/cryptography.dart';
 
-import 'protos/generated//sec1.pb.dart';
+import 'protos/generated/sec1.pb.dart';
 import 'protos/generated/session.pb.dart';
 import 'security.dart';
 import 'crypt.dart';
