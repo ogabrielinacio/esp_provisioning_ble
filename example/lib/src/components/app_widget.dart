@@ -1,4 +1,6 @@
+import 'package:example/src/features/ble_screen/view/ble_password.dart';
 import 'package:example/src/features/ble_screen/view/ble_view.dart';
+import 'package:example/src/features/ble_wifi_screen/view/ble_wifi_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:example/src/components/home_screen.dart';
@@ -23,6 +25,8 @@ class AppWidget extends StatelessWidget {
           routes: {
             '/': (_) => const HomeScreen(),
             '/ble': (_) => const BleView(),
+            '/BlePasswordView': (_) => const BlePasswordView(),
+            '/bleWifiScreen': (_) => const BleWifiView(),
           },
         ),);
   }

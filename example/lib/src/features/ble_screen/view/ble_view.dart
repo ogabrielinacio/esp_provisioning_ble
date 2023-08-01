@@ -74,17 +74,15 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
             return Text('ble ready to scan');
           } else if (state is BleScanCompleted) {
             return ScanList(items: state.foundedDevices, icon: Icons.bluetooth,
-                  onTap: (dynamic item , BuildContext context) {
-                // BlocProvider.of<BleBloc>(context).add(BleEventStopScanning());
-                BlocProvider.of<BleWifiBloc>(context)
-                    .add(
-                      BleWifiInitialEvent(peripheral: item, pop: 'abcd1234'));
-                  BlocProvider.of<BleWifiBloc>(context)
-                      .add(BleWifiStartProvisioningEvent());
-                  BlocProvider.of<BleWifiBloc>(context)
-                      .add(BleWifiScanWifiNetworksEvent());
-                  // Navigator.pushNamed(context, '/blePassword');
-              });
+                  onTap: (Map<String,dynamic> item , BuildContext context) {
+                  Navigator.pushNamed(
+                    context,
+                    '/BlePasswordView',
+                    arguments: {
+                      'peripheralMap': item,
+                    },
+                  );
+                });
           } else if (state is BleScanningError) {
             return Text('ble scan error');
           } else if (state is BleScanCompleted) {

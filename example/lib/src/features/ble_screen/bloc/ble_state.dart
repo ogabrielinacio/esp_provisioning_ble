@@ -34,7 +34,7 @@ class BleStopScan extends BleState {}
 class BleScanningError extends BleState {}
 
 class BleScanCompleted extends BleState {
-  final List<dynamic> foundedDevices;
+  final List<Map<String,dynamic>> foundedDevices;
   BleScanCompleted({required this.foundedDevices});
 }
 

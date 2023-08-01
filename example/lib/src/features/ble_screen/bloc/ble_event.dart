@@ -46,7 +46,7 @@ class BleRestartingScanEvent extends BleEvent {}
 class BleScanningErrorEvent extends BleEvent {}
 
 class BleScanCompletedEvent extends BleEvent {
-  final List<dynamic> devices;
+  final List<Map<String,dynamic>> devices;
   BleScanCompletedEvent({required this.devices});
 }
 
