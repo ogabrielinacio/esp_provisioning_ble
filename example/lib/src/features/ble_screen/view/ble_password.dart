@@ -53,6 +53,7 @@ class _BlePasswordViewState extends State<BlePasswordView> {
                 height: sizeHeight * 0.04,
               ),
               SizedBox(
+                width: sizeWidth * 0.8,
                 child: TextField(
                   style: TextStyle(
                     fontSize: sizeHeight * 0.03,

@@ -1,6 +1,5 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:example/src/features/ble_screen/bloc/ble_bloc.dart';
-import 'package:example/src/features/ble_wifi_screen/bloc/ble_wifi_bloc.dart';
 import 'package:example/src/features/shared/scan_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,8 +33,12 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
     }
   }
 
+  final _controller = TextEditingController(text: 'PROV_');
+
   @override
   Widget build(BuildContext context) {
+    double sizeWidth = MediaQuery.of(context).size.width;
+    double sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
@@ -59,30 +62,50 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
               ),
             );
           } else if (state is BlePermissionDeniedForever) {
-            return Text('ble permission deniedFOREVER');
+            return const Center(child: Text('ble permission deniedFOREVER'));
           } else if (state is BlePermissionDeniedState) {
-            return Text('ble permission denied');
+            return const Center(child: Text('ble permission denied'));
           } else if (state is LocationDisabled) {
-            return Text('location disabled');
+            return const Center(child: Text('location disabled'));
           } else if (state is PermissionLocationDenied) {
-            return Text('location permission denied');
+            return const Center(child: Text('location permission denied'));
           } else if (state is PermissionLocationDeniedForever) {
-            return Text('location permission deniedForever');
+            return const Center(child: Text('location permission deniedForever'));
           } else if (state is PermissionLocationUnableToDetermine) {
-            return Text('location permission unable to determine');
+            return const Center(child: Text('location permission unable to determine'));
           } else if (state is BleReadytoScan) {
-            return Text('ble ready to scan');
+            return const Center(child: Text('ble ready to scan'));
           } else if (state is BleScanCompleted) {
-            return ScanList(items: state.foundedDevices, icon: Icons.bluetooth,
-                  onTap: (Map<String,dynamic> item , BuildContext context) {
-                  Navigator.pushNamed(
-                    context,
-                    '/BlePasswordView',
-                    arguments: {
-                      'peripheralMap': item,
-                    },
-                  );
-                });
+            return Column(
+              children: [
+                SizedBox(
+          height: sizeHeight * 0.15,
+          //TODO: form to change prefix and scan again button
+          child: SizedBox(
+            width: sizeWidth * 0.8,
+            child: TextField(
+              style: TextStyle(
+                fontSize: sizeHeight * 0.03,
+              ),
+              onSubmitted: (value) async {},
+              controller: _controller,
+            ),
+          ),
+        ),
+                ScanList(
+                    items: state.foundedDevices,
+                    icon: Icons.bluetooth,
+                    onTap: (Map<String, dynamic> item, BuildContext context) {
+                      Navigator.pushNamed(
+                        context,
+                        '/BlePasswordView',
+                        arguments: {
+                          'peripheralMap': item,
+                        },
+                      );
+                    }),
+              ],
+            );
           } else if (state is BleScanningError) {
             return Text('ble scan error');
           } else if (state is BleScanCompleted) {

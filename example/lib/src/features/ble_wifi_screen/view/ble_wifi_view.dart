@@ -8,12 +8,25 @@ class BleWifiView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          BlocProvider.of<BleWifiBloc>(context)
-              .add(BleWifiScanWifiNetworksEvent());
-        },
-        child: Text('*'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              BlocProvider.of<BleWifiBloc>(context)
+                  .add(BleWifiScanWifiNetworksEvent());
+            },
+            child: const Text('*'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              //Put here your ssis and pass
+              BlocProvider.of<BleWifiBloc>(context)
+                  .add(BleWifiSendConfigEvent(ssid: "ssid", password: "pass"));
+            },
+            child: const Text('+'),
+          ),
+        ],
       ),
     );
   }

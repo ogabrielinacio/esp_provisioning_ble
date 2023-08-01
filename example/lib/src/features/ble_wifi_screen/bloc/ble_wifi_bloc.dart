@@ -31,6 +31,9 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       //TODO: fix this code
       var listWifi = await prov.startScanWiFi();
       log.d('Found ${listWifi.length} WiFi networks');
+      for(var obj in listWifi){
+        log.d('WiFi network: ${obj.ssid}');
+      }
     } catch (e) {
       log.e('Error scan WiFi network: $e');
     }
@@ -38,6 +41,7 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
 
     on<BleWifiSendConfigEvent>((event, emit) async {
       //TODO: fix this code
+      //TODO: custom data passon event
       var customAnswerBytes = await prov
           .sendReceiveCustomData(Uint8List.fromList(utf8.encode("noice")));
       var customAnswer = utf8.decode(customAnswerBytes);
