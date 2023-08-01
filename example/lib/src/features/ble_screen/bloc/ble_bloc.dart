@@ -19,7 +19,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
 
   var logger = Logger();
   int? androidSdkVersion;
-  List<String> discoveredDevices = [];
+  List<dynamic> discoveredDevices = [];
 
   BleBloc() : super(BleInitialState()) {
     on<BleInitialEvent>((event, emit) async {
@@ -163,14 +163,14 @@ class BleBloc extends Bloc<BleEvent, BleState> {
       String prefix = (event.prefix != null) ? event.prefix! : "PROV_";
       emit(BleScanning());
       bleManager.startPeripheralScan().listen((scanResult) {
-        String? bleName = scanResult.peripheral.name;
+        Peripheral peripheral = scanResult.peripheral;
         logger.d(
-          "Scanned Peripheral $bleName, \n RSSI ${scanResult.rssi}",
+          "Scanned Peripheral ${peripheral.name}, \n RSSI ${scanResult.rssi}",
         );
-        if (bleName != null) {
-          if (bleName.contains(prefix)) {
-            if(!discoveredDevices.contains(bleName)){
-              discoveredDevices.add(bleName);
+        if (peripheral.name != null) {
+          if (peripheral.name!.contains(prefix)) {
+            if(!discoveredDevices.contains(peripheral)){
+              discoveredDevices.add(peripheral);
             }
           }
         }

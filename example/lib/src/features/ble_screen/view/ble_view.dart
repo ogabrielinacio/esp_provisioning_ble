@@ -1,5 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:example/src/features/ble_screen/bloc/ble_bloc.dart';
+import 'package:example/src/features/ble_wifi_screen/bloc/ble_wifi_bloc.dart';
 import 'package:example/src/features/shared/scan_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,11 +74,16 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
             return Text('ble ready to scan');
           } else if (state is BleScanCompleted) {
             return ScanList(items: state.foundedDevices, icon: Icons.bluetooth,
-                  onTap: (String item, BuildContext context) {
+                  onTap: (dynamic item , BuildContext context) {
                 // BlocProvider.of<BleBloc>(context).add(BleEventStopScanning());
-                // BlocProvider.of<BleWifiBloc>(context)
-                //     .add(BleWifiEventInitial(item));
-                // Navigator.pushNamed(context, '/blePassword');
+                BlocProvider.of<BleWifiBloc>(context)
+                    .add(
+                      BleWifiInitialEvent(peripheral: item, pop: 'abcd1234'));
+                  BlocProvider.of<BleWifiBloc>(context)
+                      .add(BleWifiStartProvisioningEvent());
+                  BlocProvider.of<BleWifiBloc>(context)
+                      .add(BleWifiScanWifiNetworksEvent());
+                  // Navigator.pushNamed(context, '/blePassword');
               });
           } else if (state is BleScanningError) {
             return Text('ble scan error');

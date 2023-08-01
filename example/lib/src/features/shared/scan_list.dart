@@ -4,13 +4,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 typedef ItemTapCallback = void Function(String item, BuildContext context);
 
 class ScanList extends StatelessWidget {
-  final List<String>? items;
+  final List<dynamic> items; 
   final IconData icon;
-  final ItemTapCallback? onTap;
+  final Function( dynamic item, BuildContext context)? onTap;
   final bool disableLoading;
 
   const ScanList(
-      {this.items,
+      {required this.items,
       required this.icon,
       Key? key,
       this.onTap,
@@ -27,7 +27,7 @@ class ScanList extends StatelessWidget {
         ),
         Expanded(
           child: ListView.separated(
-            itemCount: items!.length,
+            itemCount: items.length,
             itemBuilder: (context, i) {
               return Container(
                 padding: const EdgeInsets.all(12),
@@ -50,14 +50,14 @@ class ScanList extends StatelessWidget {
                       ),
                     ),
                     title: Text(
-                      items![i],
+                      items[i].name ?? items[i]['ssid'],
                       style: const TextStyle(
                         color: Colors.black,
                       ),
                     ),
                     onTap: () {
                       if (onTap != null) {
-                        onTap!(items![i], context);
+                        onTap!(items[i], context);
                       }
                     },
                   ),
