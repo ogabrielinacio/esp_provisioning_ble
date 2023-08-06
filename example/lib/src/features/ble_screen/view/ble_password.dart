@@ -38,20 +38,24 @@ class _BlePasswordViewState extends State<BlePasswordView> {
           body: Column(
             children: [
               SizedBox(
-                height: sizeHeight * 0.2,
+            height: sizeHeight * 0.2,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              right: sizeWidth * 0.1,
+              left: sizeWidth * 0.1,
+            ),
+            child: Text(
+              'Enter your proof of possession PIN for the device:',
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: sizeHeight * 0.03,
               ),
-              Center(
-                child: Text(
-                  'Config pass: ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: sizeHeight * 0.03,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: sizeHeight * 0.04,
-              ),
+            ),
+          ),
+          SizedBox(
+            height: sizeHeight * 0.04,
+          ),
               SizedBox(
                 width: sizeWidth * 0.8,
                 child: TextField(
@@ -69,19 +73,22 @@ class _BlePasswordViewState extends State<BlePasswordView> {
                 width: sizeWidth * 0.7,
                 height: sizeHeight * 0.08,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple,),
                   onPressed: () {
                       BlocProvider.of<BleWifiBloc>(context)
                     .add(
                       BleWifiInitialEvent(peripheral: peripheralMap['instance'], pop: 'abcd1234'));
                   BlocProvider.of<BleWifiBloc>(context)
-                        .add(BleWifiStartProvisioningEvent());
+                    .add(BleWifiStartProvisioningEvent());
+                BlocProvider.of<BleWifiBloc>(context)
+                    .add(BleWifiScanWifiNetworksEvent());
                     Navigator.pushNamed(context, '/bleWifiScreen');
                   },
                   child: Text(
-                    '->',
+                    'Next',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                  color: Colors.purple,
+                  color: Colors.white,
                   fontSize: sizeHeight * 0.023,
                 ),
                   ),

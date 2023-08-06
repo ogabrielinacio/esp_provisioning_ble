@@ -156,11 +156,11 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     on<BleReadytoScanEvent>((event, emit) async {
       emit(BleReadytoScan());
       await Permission.bluetoothConnect.request();
-      add(BleScanningEvent());
+      add(BleScanningEvent(prefix: "PROV_"));
     });
 
     on<BleScanningEvent>((event, emit) {
-      String prefix = (event.prefix != null) ? event.prefix! : "PROV_";
+      String prefix = (event.prefix != null) ? event.prefix! : "";
       emit(BleScanning());
       bleManager.startPeripheralScan().listen((scanResult) {
         Peripheral peripheral = scanResult.peripheral;
@@ -184,18 +184,29 @@ class BleBloc extends Bloc<BleEvent, BleState> {
             }
           }
         }
-        Future.delayed(const Duration(seconds: 8), () {
+        add(BleScanCompletedEvent(devices: discoveredDevices));
+      });
+    });
+
+    on<BleStopScanEvent>((event, emit) async {
+      emit(BleStopScan());
           bleManager.stopPeripheralScan();
           logger.d(
           "DISCOVERED DEVICES LIST: $discoveredDevices",
         );
-          add(BleScanCompletedEvent(devices: discoveredDevices));
-        });
-      });
+    });
+
+    on<BleRestartingScanEvent>((event, emit) async {
+      discoveredDevices.clear();
+      add(BleScanningEvent(prefix: event.prefix));
     });
 
     on<BleScanCompletedEvent>((event, emit) {
-      emit(BleScanCompleted(foundedDevices: event.devices));
+      if (event.devices.isNotEmpty) {
+        emit(BleScanCompleted(foundedDevices: event.devices));
+      }else{
+        emit(BleEmptyList());
+      }
     });
   }
 }

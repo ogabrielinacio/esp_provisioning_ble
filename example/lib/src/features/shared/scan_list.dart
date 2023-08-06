@@ -58,8 +58,7 @@ class ScanList extends StatelessWidget {
             ),
           );
         },
-        separatorBuilder: (context, index) => Divider(
-          color: Theme.of(context).dividerColor,
+        separatorBuilder: (context, index) => SizedBox(
           height: sizeHeight * 0.01,
         ),
       ),

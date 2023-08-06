@@ -41,7 +41,12 @@ class BleScanningEvent extends BleEvent {
 }
 
 
-class BleRestartingScanEvent extends BleEvent {}
+class BleRestartingScanEvent extends BleEvent {
+  final String? prefix;
+  BleRestartingScanEvent({this.prefix});
+}
+
+class BleStopScanEvent extends BleEvent {}
 
 class BleScanningErrorEvent extends BleEvent {}
 

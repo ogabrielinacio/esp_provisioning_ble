@@ -22,7 +22,8 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);  
+    WidgetsBinding.instance.removeObserver(this);
+    BlocProvider.of<BleBloc>(context).add(BleStopScanEvent());
     super.dispose();
   }
 
@@ -39,6 +40,9 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
+    var customPadding = SizedBox(
+      height: sizeHeight * 0.05,
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
@@ -58,7 +62,7 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                 onPressed: () {
                   AppSettings.openAppSettings(type: AppSettingsType.bluetooth);
                 },
-                child: Text('Turn on bluetooth'),
+                child: const Text('Turn on bluetooth'),
               ),
             );
           } else if (state is BlePermissionDeniedForever) {
@@ -70,32 +74,35 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
           } else if (state is PermissionLocationDenied) {
             return const Center(child: Text('location permission denied'));
           } else if (state is PermissionLocationDeniedForever) {
-            return const Center(child: Text('location permission deniedForever'));
+            return const Center(
+                child: Text('location permission deniedForever'));
           } else if (state is PermissionLocationUnableToDetermine) {
-            return const Center(child: Text('location permission unable to determine'));
+            return const Center(
+                child: Text('location permission unable to determine'));
           } else if (state is BleReadytoScan) {
             return const Center(child: Text('ble ready to scan'));
           } else if (state is BleScanCompleted) {
             return Column(
               children: [
+                customPadding,
                 SizedBox(
-          height: sizeHeight * 0.15,
-          //TODO: form to change prefix and scan again button
-          child: SizedBox(
-            width: sizeWidth * 0.8,
-            child: TextField(
-              style: TextStyle(
-                fontSize: sizeHeight * 0.03,
-              ),
-              onSubmitted: (value) async {},
-              controller: _controller,
-            ),
-          ),
-        ),
+                  height: sizeHeight * 0.15,
+                  child: SizedBox(
+                    width: sizeWidth * 0.8,
+                    child: TextField(
+                      style: TextStyle(
+                        fontSize: sizeHeight * 0.03,
+                      ),
+                      onSubmitted: (value) async {},
+                      controller: _controller,
+                    ),
+                  ),
+                ),
                 ScanList(
                     items: state.foundedDevices,
                     icon: Icons.bluetooth,
                     onTap: (Map<String, dynamic> item, BuildContext context) {
+                      BlocProvider.of<BleBloc>(context).add(BleStopScanEvent());
                       Navigator.pushNamed(
                         context,
                         '/BlePasswordView',
@@ -104,14 +111,33 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                         },
                       );
                     }),
+                SizedBox(
+                  width:  sizeWidth * 0.8,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<BleBloc>(context).add(BleRestartingScanEvent(prefix: _controller.text));
+                    },
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple,),
+                    child: Text(
+                      'Scan again',
+                      style: TextStyle(
+                        fontSize: sizeHeight * 0.023,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                customPadding,
               ],
             );
-          } else if (state is BleScanningError) {
-            return Text('ble scan error');
-          } else if (state is BleScanCompleted) {
-            return Text('ble scan completed');
           } else if (state is BleEmptyList) {
-            return Text('ble empty list');
+            return const Center(child: Text('NOT FOUND'));
+          } else if (state is BleScanningError) {
+            return const Center(child: Text('ble scan error'));
+          } else if (state is BleScanCompleted) {
+            return const Center(child: Text('ble scan completed'));
+          } else if (state is BleEmptyList) {
+            return const Center(child: Text('ble empty list'));
           } else {
             return const SpinKitRipple(
               color: Colors.purple,
