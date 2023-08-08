@@ -22,7 +22,7 @@ class _BlePasswordViewState extends State<BlePasswordView> {
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-    Map<String,dynamic> peripheralMap = args['peripheralMap'];
+    Map<String, dynamic> peripheralMap = args['peripheralMap'];
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -35,9 +35,9 @@ class _BlePasswordViewState extends State<BlePasswordView> {
           ),
         ),
       ),
-          body: Column(
-            children: [
-              SizedBox(
+      body: Column(
+        children: [
+          SizedBox(
             height: sizeHeight * 0.2,
           ),
           Padding(
@@ -47,7 +47,7 @@ class _BlePasswordViewState extends State<BlePasswordView> {
             ),
             child: Text(
               'Enter your proof of possession PIN for the device:',
-              textAlign: TextAlign.justify,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: sizeHeight * 0.03,
               ),
@@ -56,46 +56,45 @@ class _BlePasswordViewState extends State<BlePasswordView> {
           SizedBox(
             height: sizeHeight * 0.04,
           ),
-              SizedBox(
-                width: sizeWidth * 0.8,
-                child: TextField(
-                  style: TextStyle(
-                    fontSize: sizeHeight * 0.03,
-                  ),
-                  onSubmitted: (value) async {},
-                  controller: _controller,
-                ),
+          SizedBox(
+            width: sizeWidth * 0.8,
+            child: TextField(
+              style: TextStyle(
+                fontSize: sizeHeight * 0.03,
               ),
-              SizedBox(
-                height: sizeHeight * 0.04,
+              onSubmitted: (value) async {},
+              controller: _controller,
+            ),
+          ),
+          SizedBox(
+            height: sizeHeight * 0.04,
+          ),
+          SizedBox(
+            width: sizeWidth * 0.7,
+            height: sizeHeight * 0.08,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.purple,
               ),
-              SizedBox(
-                width: sizeWidth * 0.7,
-                height: sizeHeight * 0.08,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple,),
-                  onPressed: () {
-                      BlocProvider.of<BleWifiBloc>(context)
-                    .add(
-                      BleWifiInitialEvent(peripheral: peripheralMap['instance'], pop: 'abcd1234'));
-                  BlocProvider.of<BleWifiBloc>(context)
-                    .add(BleWifiStartProvisioningEvent());
+              onPressed: () {
+                BlocProvider.of<BleWifiBloc>(context).add(BleWifiInitialEvent(
+                    peripheral: peripheralMap['instance'], pop: 'abcd1234'));
                 BlocProvider.of<BleWifiBloc>(context)
-                    .add(BleWifiScanWifiNetworksEvent());
-                    Navigator.pushNamed(context, '/bleWifiScreen');
-                  },
-                  child: Text(
-                    'Next',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
+                    .add(BleWifiStartProvisioningEvent());
+                Navigator.pushNamed(context, '/bleWifiScreen');
+              },
+              child: Text(
+                'Next',
+                textAlign: TextAlign.center,
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: sizeHeight * 0.023,
                 ),
-                  ),
-                ),
               ),
-            ],
+            ),
           ),
-        );
+        ],
+      ),
+    );
   }
 }

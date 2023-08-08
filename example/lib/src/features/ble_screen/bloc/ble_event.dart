@@ -40,7 +40,6 @@ class BleScanningEvent extends BleEvent {
   BleScanningEvent({this.prefix});
 }
 
-
 class BleRestartingScanEvent extends BleEvent {
   final String? prefix;
   BleRestartingScanEvent({this.prefix});
@@ -51,8 +50,9 @@ class BleStopScanEvent extends BleEvent {}
 class BleScanningErrorEvent extends BleEvent {}
 
 class BleScanCompletedEvent extends BleEvent {
-  final List<Map<String,dynamic>> devices;
-  BleScanCompletedEvent({required this.devices});
+  final List<Map<String, dynamic>> devices;
+  final bool? stopped;
+  BleScanCompletedEvent({required this.devices, this.stopped});
 }
 
 class BleEmptyListEvent extends BleEvent {}

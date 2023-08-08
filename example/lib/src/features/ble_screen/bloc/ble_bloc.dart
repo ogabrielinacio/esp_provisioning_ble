@@ -19,7 +19,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
 
   var logger = Logger();
   int? androidSdkVersion;
-  List<Map<String,dynamic>> discoveredDevices = [];
+  List<Map<String, dynamic>> discoveredDevices = [];
 
   BleBloc() : super(BleInitialState()) {
     on<BleInitialEvent>((event, emit) async {
@@ -185,15 +185,19 @@ class BleBloc extends Bloc<BleEvent, BleState> {
           }
         }
         add(BleScanCompletedEvent(devices: discoveredDevices));
+        Timer(const Duration(seconds: 5), () {
+          add(BleStopScanEvent());
+          add(BleScanCompletedEvent(devices: discoveredDevices, stopped: true));
+        });
       });
     });
 
     on<BleStopScanEvent>((event, emit) async {
       emit(BleStopScan());
-          bleManager.stopPeripheralScan();
-          logger.d(
-          "DISCOVERED DEVICES LIST: $discoveredDevices",
-        );
+      bleManager.stopPeripheralScan();
+      logger.d(
+        "DISCOVERED DEVICES LIST: $discoveredDevices",
+      );
     });
 
     on<BleRestartingScanEvent>((event, emit) async {
@@ -203,8 +207,9 @@ class BleBloc extends Bloc<BleEvent, BleState> {
 
     on<BleScanCompletedEvent>((event, emit) {
       if (event.devices.isNotEmpty) {
-        emit(BleScanCompleted(foundedDevices: event.devices));
-      }else{
+        emit(BleScanCompleted(
+            foundedDevices: event.devices, stopped: (event.stopped ?? false)));
+      } else {
         emit(BleEmptyList());
       }
     });

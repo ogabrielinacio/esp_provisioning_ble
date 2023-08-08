@@ -86,18 +86,16 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
               children: [
                 customPadding,
                 SizedBox(
-                  height: sizeHeight * 0.15,
-                  child: SizedBox(
-                    width: sizeWidth * 0.8,
-                    child: TextField(
-                      style: TextStyle(
-                        fontSize: sizeHeight * 0.03,
-                      ),
-                      onSubmitted: (value) async {},
-                      controller: _controller,
+                  width: sizeWidth * 0.8,
+                  child: TextField(
+                    style: TextStyle(
+                      fontSize: sizeHeight * 0.03,
                     ),
+                    onSubmitted: (value) async {},
+                    controller: _controller,
                   ),
                 ),
+                customPadding,
                 ScanList(
                     items: state.foundedDevices,
                     icon: Icons.bluetooth,
@@ -111,13 +109,29 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                         },
                       );
                     }),
+                (state.stopped != null && !state.stopped!)
+                    ? SpinKitRipple(
+                        color: Colors.purple,
+                        size: sizeHeight * 0.1,
+                      )
+                    : const SizedBox(
+                        height: 0.01,
+                      ),
                 SizedBox(
-                  width:  sizeWidth * 0.8,
+                  width: sizeWidth * 0.8,
                   child: ElevatedButton(
                     onPressed: () {
-                      BlocProvider.of<BleBloc>(context).add(BleRestartingScanEvent(prefix: _controller.text));
+                      if (state.stopped == null || !state.stopped!) {
+                        BlocProvider.of<BleBloc>(context).add(
+                            BleRestartingScanEvent(prefix: _controller.text));
+                      }
                     },
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.purple,),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          (state.stopped == null || !state.stopped!)
+                              ? Colors.grey
+                              : Colors.purple,
+                    ),
                     child: Text(
                       'Scan again',
                       style: TextStyle(
@@ -134,8 +148,6 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
             return const Center(child: Text('NOT FOUND'));
           } else if (state is BleScanningError) {
             return const Center(child: Text('ble scan error'));
-          } else if (state is BleScanCompleted) {
-            return const Center(child: Text('ble scan completed'));
           } else if (state is BleEmptyList) {
             return const Center(child: Text('ble empty list'));
           } else {
