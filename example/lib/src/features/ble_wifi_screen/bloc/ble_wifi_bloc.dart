@@ -22,8 +22,12 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       );
     });
   
-    on<BleWifiStartProvisioningEvent>((event, emit) async {
-      await prov.establishSession();
+    on<BleWifiEstablishedConnectionEvent>((event, emit) async {
+      var sessionStatus = await prov.establishSession();
+      log.d("Session Status = $sessionStatus");
+      (sessionStatus)
+          ? emit(BleWifiEstablishedConnectionState())
+          : emit(BleWifiEstablishedConnectionFailedState());
     });
 
     on<BleWifiScanWifiNetworksEvent>((event, emit) async {
@@ -41,9 +45,12 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
 
     on<BleWifiSendConfigEvent>((event, emit) async {
       //TODO: fix this code
-      //TODO: custom data passon event
       var customAnswerBytes = await prov
-          .sendReceiveCustomData(Uint8List.fromList(utf8.encode("noice")));
+          .sendReceiveCustomData(
+        Uint8List.fromList(
+          utf8.encode(event.customAnswer),
+        ),
+      );
       var customAnswer = utf8.decode(customAnswerBytes);
     log.i("Custom data answer: $customAnswer");
     await prov.sendWifiConfig(ssid: event.ssid, password: event.password);

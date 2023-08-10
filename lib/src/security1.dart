@@ -62,18 +62,16 @@ class Security1 implements ProvSecurity {
     }
     if (sessionState == SecurityState.RESPONSE1_REQUEST2) {
       sessionState = SecurityState.RESPONSE2;
-      if (responseData == null) {
-        throw Exception('Response Data is null, when needed: if-Statement SecurityState.RESPONSE1_REQUEST2');
+      if (responseData != null) {
+        await setup0Response(responseData);
+        return await setup1Request(responseData);
       }
-      await setup0Response(responseData);
-      return await setup1Request(responseData);
     }
     if (sessionState == SecurityState.RESPONSE2) {
       sessionState = SecurityState.FINISH;
-      if (responseData == null) {
-        throw Exception('Response Data is null, when needed: if-Statement SecurityState.RESPONSE2');
+      if (responseData != null) {
+        await setup1Response(responseData);
       }
-      await setup1Response(responseData);
       return null;
     }
     throw Exception('Unexpected state');

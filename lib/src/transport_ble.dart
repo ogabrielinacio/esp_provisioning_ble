@@ -59,12 +59,13 @@ class TransportBLE implements ProvTransport {
   }
 
   @override
-  Future<void> disconnect() async {
+  Future<bool> disconnect() async {
     bool check = await peripheral.isConnected();
     if(check){  
-      return await peripheral.disconnectOrCancelConnection();
+      await peripheral.disconnectOrCancelConnection();
+      return true;
     }else{
-      return;
+      return false;
     }
   }
 

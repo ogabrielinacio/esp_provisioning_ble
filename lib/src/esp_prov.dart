@@ -16,16 +16,17 @@ class EspProv {
 
   EspProv({required this.transport, required this.security});
 
-  Future<void> establishSession() async {
+  Future<bool> establishSession() async {
     SessionData? responseData;
 
     await transport.disconnect();
 
+    //TODO: FIX THIS CODE
     if(await transport.connect()){
       while (await transport.checkConnect()) {
         var request = await security.securitySession(responseData);
         if (request == null) {
-          return;
+          return false;
         }
         var response =
             await transport.sendReceive('prov-session', request.writeToBuffer());
@@ -35,11 +36,11 @@ class EspProv {
         responseData = SessionData.fromBuffer(response);
       }
     }
-    return;
+    return true;
   }
 
   Future<void> dispose() async {
-    return await transport.disconnect();
+    await transport.disconnect();
   }
 
   Future<List<WifiAP>> startScanWiFi() async {
@@ -94,7 +95,7 @@ class EspProv {
     WiFiScanPayload payload = WiFiScanPayload();
     payload.msg = WiFiScanMsgType.TypeCmdScanResult;
 
-    CmdScanResult cmdScanResult = new CmdScanResult();
+    CmdScanResult cmdScanResult =  CmdScanResult();
     cmdScanResult.startIndex = startIndex;
     cmdScanResult.count = count;
 

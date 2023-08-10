@@ -5,7 +5,7 @@ abstract class ProvTransport {
 
   Future<bool> checkConnect();
 
-  Future<void> disconnect();
+  Future<bool> disconnect();
 
   Future<Uint8List> sendReceive(String epName, Uint8List data);
 }
