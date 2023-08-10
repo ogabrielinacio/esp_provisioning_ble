@@ -1,5 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:example/src/features/ble_screen/bloc/ble_bloc.dart';
+import 'package:example/src/features/ble_screen/components/prefix_form.dart';
+import 'package:example/src/features/ble_screen/components/scan_again_button.dart';
 import 'package:example/src/features/shared/scan_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,11 +89,7 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                 customPadding,
                 SizedBox(
                   width: sizeWidth * 0.8,
-                  child: TextField(
-                    style: TextStyle(
-                      fontSize: sizeHeight * 0.03,
-                    ),
-                    onSubmitted: (value) async {},
+                  child: PrefixForm(
                     controller: _controller,
                   ),
                 ),
@@ -119,33 +117,39 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                       ),
                 SizedBox(
                   width: sizeWidth * 0.8,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (state.stopped == null || !state.stopped!) {
-                        BlocProvider.of<BleBloc>(context).add(
-                            BleRestartingScanEvent(prefix: _controller.text));
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          (state.stopped == null || !state.stopped!)
-                              ? Colors.grey
-                              : Colors.purple,
-                    ),
-                    child: Text(
-                      'Scan again',
-                      style: TextStyle(
-                        fontSize: sizeHeight * 0.023,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                    child: 
+                    ScanAgainButton(
+                      stopped: state.stopped,
+                      prefix: _controller.text,
+                    )
                 ),
                 customPadding,
               ],
             );
           } else if (state is BleEmptyList) {
-            return const Center(child: Text('NOT FOUND'));
+            return  Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                    width: sizeWidth * 0.8,
+                    child: PrefixForm(
+                      controller: _controller,
+                    ),
+                  ),
+                  Text(
+                    'NOT FOUND',
+                    style: TextStyle(
+                      fontSize: sizeHeight * 0.03,
+                    ),
+                  ),
+                  ScanAgainButton(
+                    stopped: true,
+                    prefix: _controller.text,
+                  )
+                ],
+              ),
+            );
           } else if (state is BleScanningError) {
             return const Center(child: Text('ble scan error'));
           } else if (state is BleEmptyList) {

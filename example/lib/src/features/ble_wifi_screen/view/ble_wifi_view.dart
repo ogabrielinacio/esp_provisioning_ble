@@ -15,7 +15,7 @@ class _BleWifiViewState extends State<BleWifiView> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<BleWifiBloc>(context).add(BleWifiScanWifiNetworksEvent());
+    //BlocProvider.of<BleWifiBloc>(context).add(BleWifiScanWifiNetworksEvent());
   }
   @override
   Widget build(BuildContext context) {
