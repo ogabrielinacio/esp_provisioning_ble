@@ -13,10 +13,6 @@ dependencies:
   protobuf: ^3.0.0
   cryptography: ^2.5.0
   collection: ^1.17.2
-  flutter_ble_lib_ios_15:
-    git:
-      url: https://github.com/davejlin/flutter_ble_lib_ios_15.git
-      ref: master
 
 dev_dependencies:
   flutter_test:
