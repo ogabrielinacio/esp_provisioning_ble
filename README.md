@@ -1,16 +1,14 @@
 # esp_provisioning_ble
 
-A new Flutter plugin project.
-This repository is a maintaibable fork from `https://github.com/unicloudvn/esp_provisioning/tree/master`
+A library for provisioning a ESP32 with Bluetooth BLE
+
+
+
+
+
+
+This repository is a maintainable and Dart 3.0 compatible fork from `https://github.com/unicloudvn/esp_provisioning/tree/master`
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 
