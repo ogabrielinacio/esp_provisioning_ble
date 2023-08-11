@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
@@ -23,23 +22,20 @@ class TransportBLE implements ProvTransport {
   TransportBLE(this.peripheral,
       {this.serviceUUID = PROV_BLE_SERVICE, this.lockupTable = PROV_BLE_EP}) {
     nuLookup = {
-      for (var name in lockupTable.keys) 
-      name:  serviceUUID.substring(0, 4) +
+      for (var name in lockupTable.keys)
+        name: serviceUUID.substring(0, 4) +
             int.parse(lockupTable[name]!, radix: 16)
                 .toRadixString(16)
                 .padLeft(4, '0') +
             serviceUUID.substring(8)
-
     };
   }
 
   @override
   Future<bool> connect() async {
-    bool isConnected = await peripheral.isConnected();
-    if (isConnected) {
-      return Future.value(true);
-    }
-    await peripheral.connect(requestMtu: 512);
+    disconnect();
+    // await peripheral.connect(requestMtu: 512);
+    await peripheral.connect(requestMtu: 256);
     await peripheral.discoverAllServicesAndCharacteristics(
         transactionId: 'discoverAllServicesAndCharacteristics');
     return await peripheral.isConnected();
@@ -47,13 +43,14 @@ class TransportBLE implements ProvTransport {
 
   @override
   Future<Uint8List> sendReceive(String? epName, Uint8List? data) async {
-    if (data != null){ 
-      if( data.isNotEmpty){
-        await peripheral.writeCharacteristic(serviceUUID, nuLookup[ epName ?? ""]!, data, true);
+    if (data != null) {
+      if (data.isNotEmpty) {
+        await peripheral.writeCharacteristic(
+            serviceUUID, nuLookup[epName ?? ""]!, data, true);
       }
     }
     CharacteristicWithValue receivedData = await peripheral.readCharacteristic(
-        serviceUUID, nuLookup[ epName ?? ""]!,
+        serviceUUID, nuLookup[epName ?? ""]!,
         transactionId: 'readCharacteristic');
     return receivedData.value;
   }
@@ -61,11 +58,22 @@ class TransportBLE implements ProvTransport {
   @override
   Future<bool> disconnect() async {
     bool check = await peripheral.isConnected();
-    if(check){  
-      await peripheral.disconnectOrCancelConnection();
+    if (check) {
+      try {
+        await peripheral.disconnectOrCancelConnection();
+      } on Exception catch (e) {
+        print("Ops: $e");
+        return true;
+      }
+      //TODO: fix this:
+      // BleError (BleError (Error code: 205, ATT error code: null,
+      //iOS error code: null, Android error code: null,
+      //reason: Reason not provided, internal message: null,
+      //device ID: B0:A7:32:D8:8D:86, service UUID: null,
+      //characteristic UUID: null, descriptor UUID: null),),
       return true;
-    }else{
-      return false;
+    } else {
+      return true;
     }
   }
 

@@ -1,7 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:example/src/features/ble_screen/bloc/ble_bloc.dart';
 import 'package:example/src/features/ble_screen/components/prefix_form.dart';
-import 'package:example/src/features/ble_screen/components/scan_again_button.dart';
+import 'package:example/src/features/ble_screen/components/scan_again_ble_button.dart';
 import 'package:example/src/features/shared/scan_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

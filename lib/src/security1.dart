@@ -55,23 +55,19 @@ class Security1 implements ProvSecurity {
   }
 
   @override
-  Future<SessionData?> securitySession(SessionData? responseData) async {
+  Future<SessionData?> securitySession(SessionData responseData) async {
     if (sessionState == SecurityState.REQUEST1) {
       sessionState = SecurityState.RESPONSE1_REQUEST2;
       return await setup0Request();
     }
     if (sessionState == SecurityState.RESPONSE1_REQUEST2) {
       sessionState = SecurityState.RESPONSE2;
-      if (responseData != null) {
-        await setup0Response(responseData);
-        return await setup1Request(responseData);
-      }
+      await setup0Response(responseData);
+      return await setup1Request(responseData);
     }
     if (sessionState == SecurityState.RESPONSE2) {
       sessionState = SecurityState.FINISH;
-      if (responseData != null) {
-        await setup1Response(responseData);
-      }
+      await setup1Response(responseData);
       return null;
     }
     throw Exception('Unexpected state');

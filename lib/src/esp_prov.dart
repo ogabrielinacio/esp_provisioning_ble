@@ -17,26 +17,27 @@ class EspProv {
   EspProv({required this.transport, required this.security});
 
   Future<bool> establishSession() async {
-    SessionData? responseData;
-
-    await transport.disconnect();
-
-    //TODO: FIX THIS CODE
-    if(await transport.connect()){
+    try {
+      SessionData responseData = SessionData();
+      await transport.connect();
+      // while (true) {
       while (await transport.checkConnect()) {
         var request = await security.securitySession(responseData);
         if (request == null) {
-          return false;
+          return true;
         }
-        var response =
-            await transport.sendReceive('prov-session', request.writeToBuffer());
+        var response = await transport.sendReceive(
+            'prov-session', request.writeToBuffer());
         if (response.isEmpty) {
           throw Exception('Empty response');
         }
         responseData = SessionData.fromBuffer(response);
       }
+      return false;
+    } catch (e) {
+      print('EstablishSession error $e');
+      return false;
     }
-    return true;
   }
 
   Future<void> dispose() async {

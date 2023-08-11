@@ -11,7 +11,10 @@ class BleWifiEstablishedConnectionFailedState extends BleWifiState {}
 
 class BleWifiScanningNetworksState extends BleWifiState {}
 
-class BleWifiScannedNetworksState extends BleWifiState {}
+class BleWifiScannedNetworksState extends BleWifiState {
+  final List<Map<String, dynamic>> foundedNetworks;
+  BleWifiScannedNetworksState({required this.foundedNetworks});
+}
 
 class BleWifiEmptyListNewtworksState extends BleWifiState {}
 
