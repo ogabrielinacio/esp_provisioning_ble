@@ -78,7 +78,7 @@ class _BlePasswordViewState extends State<BlePasswordView> {
               ),
               onPressed: () {
                 BlocProvider.of<BleWifiBloc>(context).add(BleWifiInitialEvent(
-                    peripheral: peripheralMap['instance'], pop: 'abcd1234'));
+                    peripheral: peripheralMap['instance'], pop: _controller.text));
                 BlocProvider.of<BleWifiBloc>(context)
                     .add(BleWifiEstablishedConnectionEvent());
                 Navigator.pushNamed(context, '/bleWifiScreen');

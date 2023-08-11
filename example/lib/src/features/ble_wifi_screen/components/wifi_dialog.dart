@@ -1,16 +1,15 @@
+import 'package:example/src/features/ble_wifi_screen/bloc/ble_wifi_bloc.dart';
 import 'package:example/src/features/ble_wifi_screen/components/password_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WifiDialog extends StatefulWidget {
-  final String selectedDevice;
-  final String passDevice;
   final String wifiName;
 
   const WifiDialog(
       {Key? key,
       required this.wifiName,
-      required this.selectedDevice,
-      required this.passDevice})
+      })
       : super(key: key);
   @override
   State<WifiDialog> createState() => _WifiDialogState();
@@ -95,6 +94,8 @@ class _WifiDialogState extends State<WifiDialog> {
                             ),
                           ),
                           onPressed: () {
+                            //TODO: fix the ssid!
+                            BlocProvider.of<BleWifiBloc>(context).add(BleWifiSendConfigEvent(ssid: ssid!, password: ssidPassword, customAnswer: "Hello"));
                             Navigator.pop(context);
                           }),
                     )

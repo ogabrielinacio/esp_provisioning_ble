@@ -15,14 +15,12 @@ class BleWifiView extends StatefulWidget {
 
 class _BleWifiViewState extends State<BleWifiView> {
 
-  void _showDialog({required String wifi, required String deviceName, required String devicePassword,
+  void _showDialog({required String wifi, required dynamic instance,
       required BuildContext context}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return WifiDialog(
-          selectedDevice: deviceName,
-          passDevice: devicePassword,
           wifiName: wifi,
         );
       },
@@ -71,9 +69,8 @@ class _BleWifiViewState extends State<BleWifiView> {
                       items: state.foundedNetworks,
                       onTap: (Map<String, dynamic> item, BuildContext context) {
                           _showDialog(
-                            wifi: "wifi",
-                            deviceName: "name",
-                            devicePassword: "devicePass",
+                            wifi: item["ssid"],
+                            instance: item["instance"],
                             context: context,
                           );
                       }),
@@ -85,9 +82,21 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ],
               ),
             );
-          }else if (state is BleWifiEstablishedConnectionFailedState){
-            return const Center(child: Text("connection failed"));
-          }else{
+          } else if (state is BleWifiEstablishedConnectionFailedState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text("connection failed"),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<BleWifiBloc>(context)
+                        .add(BleWifiEstablishedConnectionEvent());
+                  },
+                  child: Text("estabilished a connection"),
+                ),
+              ],
+            );
+          } else {
             return const SpinKitRipple(
               color: Colors.purple,
             );
