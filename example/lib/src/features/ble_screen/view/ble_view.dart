@@ -58,6 +58,7 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
       ),
       body: BlocBuilder<BleBloc, BleState>(
         builder: (context, state) {
+          debugPrint("State: $state");
           if (state is BleDisabledState) {
             return Center(
               child: ElevatedButton(
@@ -104,6 +105,7 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                         '/BlePasswordView',
                         arguments: {
                           'peripheralMap': item,
+                          'prefix': _controller.text,
                         },
                       );
                     }),

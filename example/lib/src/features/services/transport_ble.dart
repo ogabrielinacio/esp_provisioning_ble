@@ -34,7 +34,6 @@ class TransportBLE implements ProvTransport {
   @override
   Future<bool> connect() async {
     disconnect();
-    // await peripheral.connect(requestMtu: 512);
     await peripheral.connect(requestMtu: 256);
     await peripheral.discoverAllServicesAndCharacteristics(
         transactionId: 'discoverAllServicesAndCharacteristics');

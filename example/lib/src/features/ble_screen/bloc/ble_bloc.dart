@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:example/src/features/services/transport_ble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:logger/logger.dart';
@@ -20,6 +21,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
   var logger = Logger();
   int? androidSdkVersion;
   List<Map<String, dynamic>> discoveredDevices = [];
+  Timer? scanningTimer;
 
   BleBloc() : super(BleInitialState()) {
     on<BleInitialEvent>((event, emit) async {
@@ -184,8 +186,9 @@ class BleBloc extends Bloc<BleEvent, BleState> {
             }
           }
         }
+        //TODO: improve this code, state completed emit constantly
         add(BleScanCompletedEvent(devices: discoveredDevices));
-        Timer(const Duration(seconds: 5), () {
+        scanningTimer = Timer(const Duration(seconds: 5), () {
           add(BleStopScanEvent());
           add(BleScanCompletedEvent(devices: discoveredDevices, stopped: true));
         });
@@ -193,11 +196,14 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     });
 
     on<BleStopScanEvent>((event, emit) async {
-      emit(BleStopScan());
       bleManager.stopPeripheralScan();
+      if(scanningTimer != null){
+        scanningTimer!.cancel();
+      }
       logger.d(
         "DISCOVERED DEVICES LIST: $discoveredDevices",
       );
+      emit(BleStopScan());
     });
 
     on<BleRestartingScanEvent>((event, emit) async {
@@ -211,6 +217,15 @@ class BleBloc extends Bloc<BleEvent, BleState> {
             foundedDevices: event.devices, stopped: (event.stopped ?? false)));
       } else {
         emit(BleEmptyList());
+      }
+    });
+    on<BleConnectEvent>((event,emit) async{
+      var transport = TransportBLE(event.peripheral);
+      bool result =  await transport.connect();
+      if(result){
+        emit(BleConnected());
+      }else{
+        emit(BleConnectedFailed());
       }
     });
   }
