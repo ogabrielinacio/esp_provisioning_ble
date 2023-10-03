@@ -19,7 +19,7 @@ class EspProv {
   Future<bool> establishSession() async {
     try {
       SessionData responseData = SessionData();
-      await transport.connect();
+      // await transport.connect();
       // while (true) {
       while (await transport.checkConnect()) {
         var request = await security.securitySession(responseData);
