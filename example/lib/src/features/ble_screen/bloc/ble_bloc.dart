@@ -19,10 +19,20 @@ class BleBloc extends Bloc<BleEvent, BleState> {
   static geo.GeolocatorPlatform locator = geo.GeolocatorPlatform.instance;
 
   var logger = Logger();
+  bool deviceConnected = false;
   int? androidSdkVersion;
   List<Map<String, dynamic>> discoveredDevices = [];
   Timer? scanningTimer;
-  late StreamSubscription<ScanResult>  streamSubscriptionScanBle;
+  late StreamSubscription<ScanResult>? streamSubscriptionScanBle;
+
+  disposeTimerAndStream() {
+    if (scanningTimer != null) {
+      scanningTimer!.cancel();
+    }
+    if (streamSubscriptionScanBle != null) {
+      streamSubscriptionScanBle!.cancel();
+    }
+  }
 
   BleBloc() : super(BleInitialState()) {
     on<BleInitialEvent>((event, emit) async {
@@ -165,7 +175,8 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     on<BleScanningEvent>((event, emit) {
       String prefix = (event.prefix != null) ? event.prefix! : "";
       emit(BleScanning());
-      streamSubscriptionScanBle = bleManager.startPeripheralScan().listen((scanResult) {
+      streamSubscriptionScanBle =
+          bleManager.startPeripheralScan().listen((scanResult) {
         Peripheral peripheral = scanResult.peripheral;
         logger.d(
           "Scanned Peripheral ${peripheral.name}, \n RSSI ${scanResult.rssi}",
@@ -197,24 +208,30 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     });
 
     on<BleStopScanEvent>((event, emit) async {
-      streamSubscriptionScanBle.cancel();
       bleManager.stopPeripheralScan();
-      if(scanningTimer != null){
-        scanningTimer!.cancel();
-      }
+      disposeTimerAndStream();
       logger.d(
         "DISCOVERED DEVICES LIST: $discoveredDevices",
       );
-      emit(BleStopScan());
+
+      if (!deviceConnected) {
+        emit(BleStopScan());
+      }
     });
 
     on<BleScanCompletedEvent>((event, emit) {
-      if(event.stopped != null && event.stopped!){
-        streamSubscriptionScanBle.cancel();
+      if (event.stopped != null && event.stopped!) {
+        disposeTimerAndStream();
       }
       if (event.devices.isNotEmpty) {
-        emit(BleScanCompleted(
-            foundedDevices: event.devices, stopped: (event.stopped ?? false)));
+        if (!deviceConnected) {
+          emit(
+            BleScanCompleted(
+              foundedDevices: event.devices,
+              stopped: (event.stopped ?? false),
+            ),
+          );
+        }
       } else {
         if (event.stopped != null && event.stopped!) emit(BleEmptyList());
       }
@@ -222,15 +239,18 @@ class BleBloc extends Bloc<BleEvent, BleState> {
 
     on<BleRestartingScanEvent>((event, emit) async {
       discoveredDevices.clear();
+      deviceConnected = false;
       add(BleScanningEvent(prefix: event.prefix));
     });
 
-    on<BleConnectEvent>((event,emit) async{
+    on<BleConnectEvent>((event, emit) async {
       var transport = TransportBLE(event.peripheral);
-      bool result =  await transport.connect();
-      if(result){
+      bool result = await transport.connect();
+      if (result) {
+        deviceConnected = true;
         emit(BleConnected());
-      }else{
+      } else {
+        deviceConnected = false;
         emit(BleConnectedFailed());
       }
     });
