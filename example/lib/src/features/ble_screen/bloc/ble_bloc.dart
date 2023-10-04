@@ -24,8 +24,10 @@ class BleBloc extends Bloc<BleEvent, BleState> {
   List<Map<String, dynamic>> discoveredDevices = [];
   Timer? scanningTimer;
   late StreamSubscription<ScanResult>? streamSubscriptionScanBle;
+  bool disposeTimerAndStream = false;
 
-  disposeTimerAndStream() {
+  funcDisposeTimerAndStream() {
+    disposeTimerAndStream = true;
     if (scanningTimer != null) {
       scanningTimer!.cancel();
     }
@@ -175,6 +177,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     on<BleScanningEvent>((event, emit) {
       String prefix = (event.prefix != null) ? event.prefix! : "";
       emit(BleScanning());
+      disposeTimerAndStream = false;
       streamSubscriptionScanBle =
           bleManager.startPeripheralScan().listen((scanResult) {
         Peripheral peripheral = scanResult.peripheral;
@@ -199,32 +202,29 @@ class BleBloc extends Bloc<BleEvent, BleState> {
           }
         }
         add(BleScanCompletedEvent(devices: discoveredDevices));
-        //TODO: for some reason, the timer stop in seconds * 2, so in that case in 6 seconds 
+        //TODO: for some reason, the timer stop in seconds * 2, so in that case in 6 seconds
         scanningTimer = Timer(const Duration(seconds: 3), () {
-          add(BleStopScanEvent());
           add(BleScanCompletedEvent(devices: discoveredDevices, stopped: true));
+          add(BleStopScanEvent());
         });
       });
     });
 
     on<BleStopScanEvent>((event, emit) async {
       bleManager.stopPeripheralScan();
-      disposeTimerAndStream();
+      funcDisposeTimerAndStream();
       logger.d(
         "DISCOVERED DEVICES LIST: $discoveredDevices",
       );
 
-      if (!deviceConnected) {
+      if (!deviceConnected && !disposeTimerAndStream) {
         emit(BleStopScan());
       }
     });
 
     on<BleScanCompletedEvent>((event, emit) {
-      if (event.stopped != null && event.stopped!) {
-        disposeTimerAndStream();
-      }
       if (event.devices.isNotEmpty) {
-        if (!deviceConnected) {
+        if (!deviceConnected && !disposeTimerAndStream) {
           emit(
             BleScanCompleted(
               foundedDevices: event.devices,
@@ -253,6 +253,11 @@ class BleBloc extends Bloc<BleEvent, BleState> {
         deviceConnected = false;
         emit(BleConnectedFailed());
       }
+    });
+
+
+    on<BleLoadingEvent>((event, emit)  {
+      emit(BleLoadingState());
     });
   }
 }

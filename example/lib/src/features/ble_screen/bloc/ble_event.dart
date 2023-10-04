@@ -57,6 +57,8 @@ class BleScanCompletedEvent extends BleEvent {
 
 class BleEmptyListEvent extends BleEvent {}
 
+class BleLoadingEvent extends BleEvent {}
+
 class BleConnectEvent extends BleEvent {
   final Peripheral peripheral;
   BleConnectEvent({required this.peripheral});  

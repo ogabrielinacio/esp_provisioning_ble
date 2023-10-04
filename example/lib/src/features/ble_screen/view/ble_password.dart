@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:example/src/features/ble_screen/bloc/ble_bloc.dart';
 import 'package:example/src/features/ble_wifi_screen/bloc/ble_wifi_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -17,6 +18,7 @@ class _BlePasswordViewState extends State<BlePasswordView> {
   final _controller = TextEditingController(text: 'abcd1234');
   late BleBloc _bleBloc;
   late String? prefix;
+  late Peripheral selectedPeripheral;
 
   @override
   void initState() {
@@ -25,9 +27,10 @@ class _BlePasswordViewState extends State<BlePasswordView> {
       if (ModalRoute.of(context)!.settings.arguments != null) {
         final item = ModalRoute.of(context)!.settings.arguments as Map;
         prefix = item['prefix'];
+        selectedPeripheral = item['peripheralMap']['instance'];
         BlocProvider.of<BleBloc>(context).add(
           BleConnectEvent(
-            peripheral: item['peripheralMap']['instance'],
+            peripheral: selectedPeripheral
           ),
         );
       }
@@ -66,7 +69,23 @@ class _BlePasswordViewState extends State<BlePasswordView> {
       body: BlocBuilder<BleBloc, BleState>(
         builder: (context, state) {
           if (state is BleConnectedFailed) {
-            return const Center(child: Text('Failed to connect'));
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Center(
+                  child: Text('Failed to connect'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<BleBloc>(context).add(BleLoadingEvent());
+                    BlocProvider.of<BleBloc>(context).add(
+                      BleConnectEvent(peripheral: selectedPeripheral),
+                    );
+                  },
+                  child: const Text("Try again"),
+                )
+              ],
+            );
           } else if (state is BleConnected) {
             return Column(
               children: [

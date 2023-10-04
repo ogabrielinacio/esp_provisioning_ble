@@ -41,6 +41,8 @@ class BleScanCompleted extends BleState {
 
 class BleEmptyList extends BleState {}
 
+class BleLoadingState extends BleState {}
+
 class BleConnected extends BleState {}
 
 class BleConnectedFailed extends BleState {}
