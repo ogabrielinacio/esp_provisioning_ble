@@ -86,13 +86,22 @@ class _BleWifiViewState extends State<BleWifiView> {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("connection failed"),
+                SizedBox(
+                  width: sizeWidth,
+                  child: const Text(
+                    "Connection failed",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     BlocProvider.of<BleWifiBloc>(context)
                         .add(BleWifiEstablishedConnectionEvent());
                   },
-                  child: Text("estabilished a connection"),
+                  child: const Text(
+                    "estabilished a connection",
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ],
             );

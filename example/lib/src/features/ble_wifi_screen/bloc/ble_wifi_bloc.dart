@@ -34,7 +34,6 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
 
     on<BleWifiScanWifiNetworksEvent>((event, emit) async {
       try {
-        //TODO: refactor this code
         var listWifi = await prov.startScanWiFi();
         log.d('Found ${listWifi.length} WiFi networks');
         for (var obj in listWifi) {
@@ -52,7 +51,6 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
     });
 
     on<BleWifiSendConfigEvent>((event, emit) async {
-      //TODO: refactor this code
       var customAnswerBytes = await prov.sendReceiveCustomData(
         Uint8List.fromList(
           utf8.encode(event.customAnswer),
