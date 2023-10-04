@@ -186,7 +186,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
             }
           }
         }
-        //TODO: improve this code, state completed emit constantly
+        //TODO: refactor this code, state completed emit constantly
         add(BleScanCompletedEvent(devices: discoveredDevices));
         scanningTimer = Timer(const Duration(seconds: 5), () {
           add(BleStopScanEvent());

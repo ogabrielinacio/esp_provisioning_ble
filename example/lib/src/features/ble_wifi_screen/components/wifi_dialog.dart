@@ -94,7 +94,7 @@ class _WifiDialogState extends State<WifiDialog> {
                             ),
                           ),
                           onPressed: () {
-                            //TODO: fix the ssid!
+                            //TODO: refactor the ssid part
                             BlocProvider.of<BleWifiBloc>(context).add(BleWifiSendConfigEvent(ssid: ssid!, password: ssidPassword, customAnswer: "Hello"));
                             Navigator.pop(context);
                           }),
