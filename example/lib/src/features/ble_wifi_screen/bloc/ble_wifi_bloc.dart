@@ -63,6 +63,15 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       emit(BleWifiSentConfigState());
     });
 
+    on<BleWifiGetStatusEvent>((event, emit) async {
+      ConnectionStatus status = await prov.getStatus();
+      print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+      print(status.state);
+      print(status.ip);
+      print(status.failedReason);
+      print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+    });
+
     on<BleWifiLoadingEvent>((event, emit) {
       emit(BleWifiLoadingState());
     });

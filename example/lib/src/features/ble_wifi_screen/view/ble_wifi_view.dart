@@ -107,8 +107,20 @@ class _BleWifiViewState extends State<BleWifiView> {
               ],
             );
           } else if (state is BleWifiSentConfigState){
-            return const Center(
-              child: Text("Provisioned!! ;)"),
+            return  Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Center(
+                  child: Text("Provisioned!! ;)"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    BlocProvider.of<BleWifiBloc>(context)
+                        .add(BleWifiGetStatusEvent());
+                  },
+                  child: const Text(" get status"),
+                ),
+              ],
             );
           }
           else {
