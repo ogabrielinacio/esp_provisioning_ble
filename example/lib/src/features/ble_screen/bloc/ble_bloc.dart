@@ -199,7 +199,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
           }
         }
         add(BleScanCompletedEvent(devices: discoveredDevices));
-        //FIX: for some reason, the timer stop in seconds * 2, so in that case in 6 seconds 
+        //TODO: for some reason, the timer stop in seconds * 2, so in that case in 6 seconds 
         scanningTimer = Timer(const Duration(seconds: 3), () {
           add(BleStopScanEvent());
           add(BleScanCompletedEvent(devices: discoveredDevices, stopped: true));
