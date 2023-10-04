@@ -96,8 +96,7 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    BlocProvider.of<BleWifiBloc>(context)
-                        .add(BleWifiEstablishedConnectionEvent());
+                    Navigator.of(context).popUntil(ModalRoute.withName('/ble'));
                   },
                   child: const Text(
                     "estabilished a connection",
