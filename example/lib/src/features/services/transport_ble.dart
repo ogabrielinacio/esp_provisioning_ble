@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:esp_provisioning_ble/esp_provisioning.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
+import 'package:logger/logger.dart';
 
 
 class TransportBLE implements ProvTransport {
@@ -9,6 +10,7 @@ class TransportBLE implements ProvTransport {
   final String serviceUUID;
   late final Map<String, String> nuLookup;
   final Map<String, String> lockupTable;
+  var logger = Logger();
 
   static const PROV_BLE_SERVICE = '021a9004-0382-4aea-bff4-6b3f1c5adfb4';
   static const PROV_BLE_EP = {
@@ -36,13 +38,17 @@ class TransportBLE implements ProvTransport {
     disconnect();
     try{
       await peripheral.connect(requestMtu: 256);
+      logger.d("Connect Successfully!!!");
     }catch(e){
-      print("Error: $e");
+      logger.d("Error: trying to Connect $e");
     }
-    await peripheral.discoverAllServicesAndCharacteristics(
-        transactionId: 'discoverAllServicesAndCharacteristics');
-     bool result = await peripheral.isConnected();
-    return result;
+    try{
+      await peripheral.discoverAllServicesAndCharacteristics(
+          transactionId: 'discoverAllServicesAndCharacteristics');
+    }catch(e){
+      logger.d("Error: trying to DiscoverAllServicesAndCharacteristics: $e");
+    }
+    return await peripheral.isConnected();
   }
 
   @override
@@ -65,17 +71,11 @@ class TransportBLE implements ProvTransport {
     if (check) {
       try {
         await peripheral.disconnectOrCancelConnection();
-      } on Exception catch (e) {
-        print("Ops: $e");
         return true;
+      } on Exception catch (e) {
+        logger.d("Error trying to disconnect device: $e");
+        return false;
       }
-      //TODO: fix this:
-      // BleError (BleError (Error code: 205, ATT error code: null,
-      //iOS error code: null, Android error code: null,
-      //reason: Reason not provided, internal message: null,
-      //device ID: B0:A7:32:D8:8D:86, service UUID: null,
-      //characteristic UUID: null, descriptor UUID: null),),
-      return true;
     } else {
       return true;
     }
@@ -87,6 +87,6 @@ class TransportBLE implements ProvTransport {
   }
 
   void dispose() {
-    print('dispose ble');
+    logger.d('dispose ble');
   }
 }
