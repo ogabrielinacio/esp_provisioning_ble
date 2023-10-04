@@ -25,6 +25,7 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
     });
 
     on<BleWifiEstablishedConnectionEvent>((event, emit) async {
+      add(BleWifiLoadingEvent());
       var sessionStatus = await prov.establishSession();
       log.d("Session Status = $sessionStatus");
       (sessionStatus)
