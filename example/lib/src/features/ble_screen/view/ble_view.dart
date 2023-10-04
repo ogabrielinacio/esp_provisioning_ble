@@ -69,7 +69,7 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
               ),
             );
           } else if (state is BlePermissionDeniedForever) {
-            return const Center(child: Text('ble permission deniedFOREVER'));
+            return const Center(child: Text('ble permission denied forever'));
           } else if (state is BlePermissionDeniedState) {
             return const Center(child: Text('ble permission denied'));
           } else if (state is LocationDisabled) {

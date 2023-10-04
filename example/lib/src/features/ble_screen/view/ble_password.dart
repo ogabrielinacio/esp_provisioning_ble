@@ -25,20 +25,22 @@ class _BlePasswordViewState extends State<BlePasswordView> {
       if (ModalRoute.of(context)!.settings.arguments != null) {
         final item = ModalRoute.of(context)!.settings.arguments as Map;
         prefix = item['prefix'];
-        // Future.delayed(const Duration(milliseconds: 200), () {
-          BlocProvider.of<BleBloc>(context).add(
-            BleConnectEvent(
-              peripheral: item['peripheralMap']['instance'],
-            ),
-          );
-        // });
+        BlocProvider.of<BleBloc>(context).add(
+          BleConnectEvent(
+            peripheral: item['peripheralMap']['instance'],
+          ),
+        );
       }
     });
   }
 
   @override
   void dispose() {
-    _bleBloc.add(BleRestartingScanEvent(prefix: prefix));
+    _bleBloc.add(
+      BleRestartingScanEvent(
+        prefix: prefix,
+      ),
+    );
     super.dispose();
   }
 
@@ -63,76 +65,77 @@ class _BlePasswordViewState extends State<BlePasswordView> {
       ),
       body: BlocBuilder<BleBloc, BleState>(
         builder: (context, state) {
-          if(state is BleConnectedFailed){
-            return  const Center(child:Text('Failed to connect'));
-          }
-          else if(state is BleConnected){
-
-          return Column(
-            children: [
-              SizedBox(
-                height: sizeHeight * 0.2,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  right: sizeWidth * 0.1,
-                  left: sizeWidth * 0.1,
+          if (state is BleConnectedFailed) {
+            return const Center(child: Text('Failed to connect'));
+          } else if (state is BleConnected) {
+            return Column(
+              children: [
+                SizedBox(
+                  height: sizeHeight * 0.2,
                 ),
-                child: Text(
-                  'Enter your proof of possession PIN for the device:',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: sizeHeight * 0.03,
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: sizeWidth * 0.1,
+                    left: sizeWidth * 0.1,
                   ),
-                ),
-              ),
-              SizedBox(
-                height: sizeHeight * 0.04,
-              ),
-              SizedBox(
-                width: sizeWidth * 0.8,
-                child: TextField(
-                  style: TextStyle(
-                    fontSize: sizeHeight * 0.03,
-                  ),
-                  onSubmitted: (value) async {},
-                  controller: _controller,
-                ),
-              ),
-              SizedBox(
-                height: sizeHeight * 0.04,
-              ),
-              SizedBox(
-                width: sizeWidth * 0.7,
-                height: sizeHeight * 0.08,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                  ),
-                  onPressed: () {
-                    BlocProvider.of<BleWifiBloc>(context).add(
-                        BleWifiInitialEvent(
-                            peripheral: peripheralMap['instance'],
-                            pop: _controller.text));
-                    BlocProvider.of<BleWifiBloc>(context)
-                        .add(BleWifiEstablishedConnectionEvent());
-                    Navigator.pushNamed(context, '/bleWifiScreen');
-                  },
                   child: Text(
-                    'Next',
+                    'Enter your proof of possession PIN for the device:',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: sizeHeight * 0.023,
+                      fontSize: sizeHeight * 0.03,
                     ),
                   ),
                 ),
-              ),
-            ],
-          );
-          }
-          else{
-            return const SpinKitRipple(color: Colors.purple,);
+                SizedBox(
+                  height: sizeHeight * 0.04,
+                ),
+                SizedBox(
+                  width: sizeWidth * 0.8,
+                  child: TextField(
+                    style: TextStyle(
+                      fontSize: sizeHeight * 0.03,
+                    ),
+                    onSubmitted: (value) {},
+                    controller: _controller,
+                  ),
+                ),
+                SizedBox(
+                  height: sizeHeight * 0.04,
+                ),
+                SizedBox(
+                  width: sizeWidth * 0.7,
+                  height: sizeHeight * 0.08,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.purple,
+                    ),
+                    onPressed: () {
+                      BlocProvider.of<BleWifiBloc>(context).add(
+                        BleWifiInitialEvent(
+                          peripheral: peripheralMap['instance'],
+                          pop: _controller.text,
+                        ),
+                      );
+                      BlocProvider.of<BleWifiBloc>(context)
+                          .add(BleWifiEstablishedConnectionEvent());
+                      Navigator.pushNamed(context, '/bleWifiScreen');
+                    },
+                    child: Text(
+                      'Next',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: sizeHeight * 0.023,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return const SpinKitRipple(
+              color: Colors.purple,
+            );
           }
         },
       ),
