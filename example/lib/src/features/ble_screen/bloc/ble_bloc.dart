@@ -198,9 +198,9 @@ class BleBloc extends Bloc<BleEvent, BleState> {
             }
           }
         }
-        //TODO: refactor this code, state completed emit constantly
         add(BleScanCompletedEvent(devices: discoveredDevices));
-        scanningTimer = Timer(const Duration(seconds: 4), () {
+        //FIX: for some reason, the timer stop in seconds * 2, so in that case in 6 seconds 
+        scanningTimer = Timer(const Duration(seconds: 3), () {
           add(BleStopScanEvent());
           add(BleScanCompletedEvent(devices: discoveredDevices, stopped: true));
         });
