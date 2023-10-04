@@ -22,6 +22,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
   int? androidSdkVersion;
   List<Map<String, dynamic>> discoveredDevices = [];
   Timer? scanningTimer;
+  late StreamSubscription<ScanResult>  streamSubscriptionScanBle;
 
   BleBloc() : super(BleInitialState()) {
     on<BleInitialEvent>((event, emit) async {
@@ -164,7 +165,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     on<BleScanningEvent>((event, emit) {
       String prefix = (event.prefix != null) ? event.prefix! : "";
       emit(BleScanning());
-      bleManager.startPeripheralScan().listen((scanResult) {
+      streamSubscriptionScanBle = bleManager.startPeripheralScan().listen((scanResult) {
         Peripheral peripheral = scanResult.peripheral;
         logger.d(
           "Scanned Peripheral ${peripheral.name}, \n RSSI ${scanResult.rssi}",
@@ -188,7 +189,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
         }
         //TODO: refactor this code, state completed emit constantly
         add(BleScanCompletedEvent(devices: discoveredDevices));
-        scanningTimer = Timer(const Duration(seconds: 5), () {
+        scanningTimer = Timer(const Duration(seconds: 4), () {
           add(BleStopScanEvent());
           add(BleScanCompletedEvent(devices: discoveredDevices, stopped: true));
         });
@@ -196,6 +197,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     });
 
     on<BleStopScanEvent>((event, emit) async {
+      streamSubscriptionScanBle.cancel();
       bleManager.stopPeripheralScan();
       if(scanningTimer != null){
         scanningTimer!.cancel();
@@ -206,19 +208,23 @@ class BleBloc extends Bloc<BleEvent, BleState> {
       emit(BleStopScan());
     });
 
+    on<BleScanCompletedEvent>((event, emit) {
+      if(event.stopped != null && event.stopped!){
+        streamSubscriptionScanBle.cancel();
+      }
+      if (event.devices.isNotEmpty) {
+        emit(BleScanCompleted(
+            foundedDevices: event.devices, stopped: (event.stopped ?? false)));
+      } else {
+        if (event.stopped != null && event.stopped!) emit(BleEmptyList());
+      }
+    });
+
     on<BleRestartingScanEvent>((event, emit) async {
       discoveredDevices.clear();
       add(BleScanningEvent(prefix: event.prefix));
     });
 
-    on<BleScanCompletedEvent>((event, emit) {
-      if (event.devices.isNotEmpty) {
-        emit(BleScanCompleted(
-            foundedDevices: event.devices, stopped: (event.stopped ?? false)));
-      } else {
-        emit(BleEmptyList());
-      }
-    });
     on<BleConnectEvent>((event,emit) async{
       var transport = TransportBLE(event.peripheral);
       bool result =  await transport.connect();

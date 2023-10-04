@@ -65,9 +65,10 @@ class _BlePasswordViewState extends State<BlePasswordView> {
       ),
       body: BlocBuilder<BleBloc, BleState>(
         builder: (context, state) {
+          print("\n\n\nSTATE ON PASSWORD = $state \n\n");
           if (state is BleConnectedFailed) {
             return const Center(child: Text('Failed to connect'));
-          } else if (state is BleConnected) {
+          } else if (state is BleConnected || state is BleScanCompleted) {
             return Column(
               children: [
                 SizedBox(
