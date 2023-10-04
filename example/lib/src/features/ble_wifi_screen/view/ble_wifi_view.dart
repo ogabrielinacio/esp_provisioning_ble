@@ -32,6 +32,7 @@ class _BleWifiViewState extends State<BleWifiView> {
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.purple,
         centerTitle: true,
@@ -105,7 +106,12 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ),
               ],
             );
-          } else {
+          } else if (state is BleWifiSentConfigState){
+            return const Center(
+              child: Text("Provisioned!! ;)"),
+            );
+          }
+          else {
             return const SpinKitRipple(
               color: Colors.purple,
             );

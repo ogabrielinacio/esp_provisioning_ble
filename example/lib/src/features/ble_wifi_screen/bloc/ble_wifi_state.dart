@@ -18,4 +18,6 @@ class BleWifiScannedNetworksState extends BleWifiState {
 
 class BleWifiEmptyListNewtworksState extends BleWifiState {}
 
-class BleWifiSendedConfigState extends BleWifiState {}
+class BleWifiSentConfigState extends BleWifiState {}
+
+class BleWifiLoadingState extends BleWifiState {}
