@@ -28,7 +28,9 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
     on<BleWifiInitialEvent>((event, emit) {
       prov = EspProv(
         transport: TransportBLE(event.peripheral),
-        security: Security1(pop: event.pop),
+        security: Security1(
+          pop: event.pop,
+        ),
       );
     });
 
@@ -36,9 +38,16 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       add(BleWifiLoadingEvent());
       var sessionStatus = await prov.establishSession();
       log.d("Session Status = $sessionStatus");
-      (sessionStatus)
-          ? emit(BleWifiEstablishedConnectionState())
-          : emit(BleWifiEstablishedConnectionFailedState());
+      switch(sessionStatus){
+        case EstablishSessionStatus.Connected:{
+           emit(BleWifiEstablishedConnectionState());
+        }
+        case EstablishSessionStatus.Disconnected:
+          emit(BleWifiEstablishedConnectionFailedState());
+        case EstablishSessionStatus.Keymismatch:
+          emit(BleWifiEstablishedConnectionKeyMismatch());
+      }
+       
     });
 
     on<BleWifiScanWifiNetworksEvent>((event, emit) async {

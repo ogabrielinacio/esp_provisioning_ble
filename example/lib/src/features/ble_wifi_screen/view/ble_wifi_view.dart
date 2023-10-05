@@ -84,6 +84,25 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ],
               ),
             );
+          } else if (state is BleWifiEstablishedConnectionKeyMismatch) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: sizeWidth,
+                  child: const Text(
+                    "Connection failed",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Retype"),
+                ),
+              ],
+            );
           } else if (state is BleWifiEstablishedConnectionFailedState) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

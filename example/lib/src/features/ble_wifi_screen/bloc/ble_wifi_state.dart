@@ -7,6 +7,8 @@ class BleWifiInitial extends BleWifiState {}
 
 class BleWifiEstablishedConnectionState extends BleWifiState {}
 
+class BleWifiEstablishedConnectionKeyMismatch extends BleWifiState {}
+
 class BleWifiEstablishedConnectionFailedState extends BleWifiState {}
 
 class BleWifiScanningNetworksState extends BleWifiState {}
