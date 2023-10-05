@@ -13,12 +13,12 @@ enum WifiConnectFailedReason {
 class ConnectionStatus {
   ConnectionStatus({
     required this.state,
-    this.ip,
+    this.deviceIp,
     this.failedReason,
   });
 
   final WifiConnectionState state;
-  final String? ip;
+  final String? deviceIp;
   final WifiConnectFailedReason? failedReason;
 }
 

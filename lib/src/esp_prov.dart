@@ -186,7 +186,7 @@ class EspProv {
     if (respPayload.respGetStatus.staState.value == 0) {
       return ConnectionStatus(
           state: WifiConnectionState.Connected,
-          ip: respPayload.respGetStatus.connected.ip4Addr);
+          deviceIp: respPayload.respGetStatus.connected.ip4Addr);
     } else if (respPayload.respGetStatus.staState.value == 1) {
       return ConnectionStatus(state: WifiConnectionState.Connecting);
     } else if (respPayload.respGetStatus.staState.value == 2) {
