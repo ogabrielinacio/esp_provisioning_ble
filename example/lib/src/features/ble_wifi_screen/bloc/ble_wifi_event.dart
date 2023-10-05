@@ -16,8 +16,6 @@ class BleWifiEstablishedConnectionEvent extends BleWifiEvent {}
 
 class BleWifiScanWifiNetworksEvent extends BleWifiEvent {}
 
-class BleWifiLoadingEvent extends BleWifiEvent {}
-
 class BleWifiGetStatusEvent extends BleWifiEvent {}
 
 class BleWifiSendConfigEvent extends BleWifiEvent {
@@ -29,4 +27,14 @@ class BleWifiSendConfigEvent extends BleWifiEvent {
     required this.password,
     required this.customSendMessage,
   });
+}
+class BleWifiConnectedEvent extends BleWifiEvent {}
+
+class BleWifiDisconnectedEvent extends BleWifiEvent {}
+
+class BleWifiLoadingEvent extends BleWifiEvent {}
+
+class BleWifiConnectionFailedEvent extends BleWifiEvent {
+  final WifiConnectFailedReason failedReason;
+  BleWifiConnectionFailedEvent({required this.failedReason});
 }

@@ -10,8 +10,6 @@ class ScanAgainWifiButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         BlocProvider.of<BleWifiBloc>(context)
-            .add(BleWifiLoadingEvent());
-        BlocProvider.of<BleWifiBloc>(context)
             .add(BleWifiScanWifiNetworksEvent());
       },
       child: const Text(

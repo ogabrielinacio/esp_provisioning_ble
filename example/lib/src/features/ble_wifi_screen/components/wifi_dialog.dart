@@ -93,8 +93,6 @@ class _WifiDialogState extends State<WifiDialog> {
                         ),
                       ),
                       onPressed: () {
-                        BlocProvider.of<BleWifiBloc>(context)
-                            .add(BleWifiLoadingEvent());
                         BlocProvider.of<BleWifiBloc>(context).add(
                           BleWifiSendConfigEvent(
                             ssid: ssid!,

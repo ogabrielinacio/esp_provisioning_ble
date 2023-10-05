@@ -23,3 +23,12 @@ class BleWifiSentConfigState extends BleWifiState {}
 class BleWifiGetStatusState extends BleWifiState {}
 
 class BleWifiLoadingState extends BleWifiState {}
+
+class BleWifiConnectedState extends BleWifiState {}
+
+class BleWifiDisconnectedState extends BleWifiState {}
+
+class BleWifiConnectionFailedState extends BleWifiState {
+  final String failedReason;
+  BleWifiConnectionFailedState({required this.failedReason});
+}

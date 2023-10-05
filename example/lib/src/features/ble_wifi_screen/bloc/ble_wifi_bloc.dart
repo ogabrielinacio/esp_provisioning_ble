@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -15,6 +16,13 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
   late EspProv prov;
   Logger log = Logger(printer: PrettyPrinter());
   List<Map<String, dynamic>> foundedNetworks = [];
+  Timer? gettingStatusTimer;
+
+  disposeGettingStatusTimer() {
+    if (gettingStatusTimer != null) {
+      gettingStatusTimer!.cancel();
+    }
+  }
 
   BleWifiBloc() : super(BleWifiInitial()) {
     on<BleWifiInitialEvent>((event, emit) {
@@ -34,6 +42,7 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
     });
 
     on<BleWifiScanWifiNetworksEvent>((event, emit) async {
+      add(BleWifiLoadingEvent());
       try {
         var listWifi = await prov.startScanWiFi();
         log.d('Found ${listWifi.length} WiFi networks');
@@ -52,6 +61,7 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
     });
 
     on<BleWifiSendConfigEvent>((event, emit) async {
+      add(BleWifiLoadingEvent());
       var customAnswerBytes = await prov.sendReceiveCustomData(
         Uint8List.fromList(
           utf8.encode(event.customSendMessage),
@@ -62,19 +72,63 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       await prov.sendWifiConfig(ssid: event.ssid, password: event.password);
       await prov.applyWifiConfig();
       emit(BleWifiSentConfigState());
+      add(BleWifiGetStatusEvent());
     });
 
     on<BleWifiGetStatusEvent>((event, emit) async {
-      ConnectionStatus status = await prov.getStatus();
-      print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-      print(status.state);
-      print(status.ip);
-      print(status.failedReason);
-      print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+      gettingStatusTimer =
+          Timer.periodic(const Duration(milliseconds: 400), (timer) async {
+        ConnectionStatus status = await prov.getStatus();
+        switch (status.state) {
+           case WifiConnectionState.Connecting:
+            {
+              add(BleWifiLoadingEvent());
+            }
+          case WifiConnectionState.Connected:
+            {
+              log.d("Device IP: ${status.deviceIp}");
+              add(BleWifiConnectedEvent());
+            }
+          case WifiConnectionState.Disconnected:
+            {
+              add(BleWifiDisconnectedEvent());
+            }
+          case WifiConnectionState.ConnectionFailed:
+            {
+              add(
+                BleWifiConnectionFailedEvent(
+                  failedReason: status.failedReason!,
+                ),
+              );
+            }
+        }
+      });
     });
 
-    on<BleWifiLoadingEvent>((event, emit) {
-      emit(BleWifiLoadingState());
+    on<BleWifiConnectedEvent>((event, emit) {
+      disposeGettingStatusTimer();
+      emit(BleWifiConnectedState());
     });
+
+    on<BleWifiDisconnectedEvent>((event, emit) {
+      disposeGettingStatusTimer();
+      emit(BleWifiDisconnectedState());
+    });
+
+    on<BleWifiConnectionFailedEvent>((event, emit) {
+      disposeGettingStatusTimer();
+      if (event.failedReason == WifiConnectFailedReason.AuthError) {
+        emit(
+          BleWifiConnectionFailedState(failedReason: "Authentication Error"),
+        );
+      } else if (event.failedReason ==
+          WifiConnectFailedReason.NetworkNotFound) {
+        emit(
+          BleWifiConnectionFailedState(failedReason: "Network Not Found"),
+        );
+      }
+    });
+
+    on<BleWifiLoadingEvent>((event, emit) => emit(BleWifiLoadingState()));
   }
 }

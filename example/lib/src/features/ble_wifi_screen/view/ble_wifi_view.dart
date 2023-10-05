@@ -1,3 +1,4 @@
+import 'package:example/src/features/ble_screen/components/restart_application_button.dart';
 import 'package:example/src/features/ble_wifi_screen/bloc/ble_wifi_bloc.dart';
 import 'package:example/src/features/ble_wifi_screen/components/scan_again_wifi_button.dart';
 import 'package:example/src/features/ble_wifi_screen/components/wifi_dialog.dart';
@@ -94,19 +95,13 @@ class _BleWifiViewState extends State<BleWifiView> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).popUntil(ModalRoute.withName('/ble'));
-                  },
-                  child: const Text(
-                    "estabilished a connection",
-                    textAlign: TextAlign.center,
-                  ),
+                const RestartApplicationButton(
+                  textButton: "established a Connection",
                 ),
               ],
             );
-          } else if (state is BleWifiSentConfigState){
-            return  Column(
+          } else if (state is BleWifiConnectedState){
+            return   Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const Center(
@@ -114,10 +109,36 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    BlocProvider.of<BleWifiBloc>(context)
-                        .add(BleWifiGetStatusEvent());
+                    Navigator.of(context).popUntil(ModalRoute.withName('/'));
                   },
-                  child: const Text(" get status"),
+                  child: const Text(
+                    "Go to Home",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            );
+          } else if (state is BleWifiConnectionFailedState){
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Center(
+                  child: Text("Failed!!! ${state.failedReason}"),
+                ),
+                const RestartApplicationButton(
+                  textButton: "Restart",
+                ),
+              ],
+            );
+          } else if (state is BleWifiDisconnectedState){
+            return  const Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Center(
+                  child: Text("Disconnected Device"),
+                ),
+                RestartApplicationButton(
+                  textButton: "Restart",
                 ),
               ],
             );
