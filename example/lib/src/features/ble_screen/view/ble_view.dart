@@ -51,7 +51,6 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
       ),
       body: BlocBuilder<BleBloc, BleState>(
         builder: (context, state) {
-          debugPrint("State: $state");
           if (state is BleDisabledState) {
             return Center(
               child: ElevatedButton(
@@ -62,21 +61,47 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
               ),
             );
           } else if (state is BlePermissionDeniedForever) {
-            return const Center(child: Text('ble permission denied forever'));
+            return const Center(
+              child: Text(
+                'ble permission denied forever',
+              ),
+            );
           } else if (state is BlePermissionDeniedState) {
-            return const Center(child: Text('ble permission denied'));
+            return const Center(
+              child: Text(
+                'ble permission denied',
+              ),
+            );
           } else if (state is LocationDisabled) {
-            return const Center(child: Text('location disabled'));
+            return const Center(
+              child: Text(
+                'location disabled',
+              ),
+            );
           } else if (state is PermissionLocationDenied) {
-            return const Center(child: Text('location permission denied'));
+            return const Center(
+              child: Text(
+                'location permission denied',
+              ),
+            );
           } else if (state is PermissionLocationDeniedForever) {
             return const Center(
-                child: Text('location permission deniedForever'));
+              child: Text(
+                'location permission deniedForever',
+              ),
+            );
           } else if (state is PermissionLocationUnableToDetermine) {
             return const Center(
-                child: Text('location permission unable to determine'));
+              child: Text(
+                'location permission unable to determine',
+              ),
+            );
           } else if (state is BleReadytoScan) {
-            return const Center(child: Text('ble ready to scan'));
+            return const Center(
+              child: Text(
+                'ble ready to scan',
+              ),
+            );
           } else if (state is BleScanCompleted) {
             return Column(
               children: [
