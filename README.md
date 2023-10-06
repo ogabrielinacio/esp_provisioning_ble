@@ -113,6 +113,20 @@ switch (status.state) {
 }
 ```
 
+## Send custom data:
+
+To send and receive a custom data, use the `sendReceiveCustomData`  function
+
+```dart
+var customAnswerBytes = await prov.sendReceiveCustomData(
+    Uint8List.fromList(
+        utf8.encode(customSendMessage),
+    ),
+);
+var customAnswer = utf8.decode(customAnswerBytes);
+log.i("Custom data answer: $customAnswer");
+```
+
 Check [example](https://github.com/ogabrielinacio/esp_provisioning_ble/tree/main/example) application.
 
 ### Protocol Communication Overview
