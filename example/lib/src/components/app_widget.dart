@@ -15,19 +15,20 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (BuildContext context) => BleBloc()),
-          BlocProvider(create: (BuildContext context) => BleWifiBloc()),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute: '/',
-          routes: {
-            '/': (_) => const HomeScreen(),
-            '/ble': (_) => const BleView(),
-            '/BlePasswordView': (_) => const BlePasswordView(),
-            '/bleWifiScreen': (_) => const BleWifiView(),
-          },
-        ),);
+      providers: [
+        BlocProvider(create: (BuildContext context) => BleBloc()),
+        BlocProvider(create: (BuildContext context) => BleWifiBloc()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: {
+          '/': (_) => const HomeScreen(),
+          '/ble': (_) => const BleView(),
+          '/BlePasswordView': (_) => const BlePasswordView(),
+          '/bleWifiScreen': (_) => const BleWifiView(),
+        },
+      ),
+    );
   }
 }

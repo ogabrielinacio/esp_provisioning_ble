@@ -28,6 +28,7 @@ class BleWifiSendConfigEvent extends BleWifiEvent {
     required this.customSendMessage,
   });
 }
+
 class BleWifiConnectedEvent extends BleWifiEvent {}
 
 class BleWifiDisconnectedEvent extends BleWifiEvent {}

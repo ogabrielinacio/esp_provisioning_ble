@@ -38,16 +38,16 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       add(BleWifiLoadingEvent());
       var sessionStatus = await prov.establishSession();
       log.d("Session Status = $sessionStatus");
-      switch(sessionStatus){
-        case EstablishSessionStatus.Connected:{
-           emit(BleWifiEstablishedConnectionState());
-        }
+      switch (sessionStatus) {
+        case EstablishSessionStatus.Connected:
+          {
+            emit(BleWifiEstablishedConnectionState());
+          }
         case EstablishSessionStatus.Disconnected:
           emit(BleWifiEstablishedConnectionFailedState());
         case EstablishSessionStatus.Keymismatch:
           emit(BleWifiEstablishedConnectionKeyMismatch());
       }
-       
     });
 
     on<BleWifiScanWifiNetworksEvent>((event, emit) async {
@@ -89,7 +89,7 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
           Timer.periodic(const Duration(milliseconds: 400), (timer) async {
         ConnectionStatus status = await prov.getStatus();
         switch (status.state) {
-           case WifiConnectionState.Connecting:
+          case WifiConnectionState.Connecting:
             {
               add(BleWifiLoadingEvent());
             }

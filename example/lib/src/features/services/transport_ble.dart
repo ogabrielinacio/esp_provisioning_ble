@@ -4,7 +4,6 @@ import 'package:esp_provisioning_ble/esp_provisioning.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:logger/logger.dart';
 
-
 class TransportBLE implements ProvTransport {
   final Peripheral peripheral;
   final String serviceUUID;
@@ -36,16 +35,16 @@ class TransportBLE implements ProvTransport {
   @override
   Future<bool> connect() async {
     disconnect();
-    try{
+    try {
       await peripheral.connect(requestMtu: 256);
       logger.d("Connect Successfully!!!");
-    }catch(e){
+    } catch (e) {
       logger.d("Error: trying to Connect $e");
     }
-    try{
+    try {
       await peripheral.discoverAllServicesAndCharacteristics(
           transactionId: 'discoverAllServicesAndCharacteristics');
-    }catch(e){
+    } catch (e) {
       logger.d("Error: trying to DiscoverAllServicesAndCharacteristics: $e");
     }
     return await peripheral.isConnected();

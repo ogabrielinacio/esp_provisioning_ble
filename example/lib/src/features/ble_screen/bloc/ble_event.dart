@@ -18,8 +18,6 @@ class BlePermissionStatusEvent extends BleEvent {
 
 class BlePermissionRequestEvent extends BleEvent {}
 
-class BleViewHiddenEvent extends BleEvent {}
-
 class LocationStatusEvent extends BleEvent {}
 
 class LocationEnabledEvent extends BleEvent {}
@@ -61,7 +59,7 @@ class BleLoadingEvent extends BleEvent {}
 
 class BleConnectEvent extends BleEvent {
   final Peripheral peripheral;
-  BleConnectEvent({required this.peripheral});  
+  BleConnectEvent({required this.peripheral});
 }
 
 class BleFailedEvent extends BleEvent {}

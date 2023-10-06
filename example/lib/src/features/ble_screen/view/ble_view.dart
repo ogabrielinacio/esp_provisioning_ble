@@ -29,13 +29,6 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      // add event
-    }
-  }
-
   final _controller = TextEditingController(text: 'PROV_');
 
   @override

@@ -47,7 +47,6 @@ class BleBloc extends Bloc<BleEvent, BleState> {
     on<BleStatusEvent>((event, emit) async {
       try {
         await bleManager.createClient();
-        //TODO: remeber to destroy client;
       } catch (e) {
         logger.e("Error creating ble Manager client", error: e);
       }
@@ -59,10 +58,6 @@ class BleBloc extends Bloc<BleEvent, BleState> {
           add(BleDisabledEvent());
         }
       });
-    });
-
-    on<BleViewHiddenEvent>((event, emit) {
-      //TODO: fix the request on background, i just want on foreground
     });
 
     on<BleEnabledEvent>((event, emit) {
@@ -202,7 +197,6 @@ class BleBloc extends Bloc<BleEvent, BleState> {
           }
         }
         add(BleScanCompletedEvent(devices: discoveredDevices));
-        //TODO: for some reason, the timer stop in seconds * 2, so in that case in 6 seconds
         scanningTimer = Timer(const Duration(seconds: 3), () {
           add(BleScanCompletedEvent(devices: discoveredDevices, stopped: true));
           add(BleStopScanEvent());
@@ -255,8 +249,7 @@ class BleBloc extends Bloc<BleEvent, BleState> {
       }
     });
 
-
-    on<BleLoadingEvent>((event, emit)  {
+    on<BleLoadingEvent>((event, emit) {
       emit(BleLoadingState());
     });
   }

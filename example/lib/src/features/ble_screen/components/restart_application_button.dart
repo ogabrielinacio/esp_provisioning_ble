@@ -11,7 +11,9 @@ class RestartApplicationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.of(context).popUntil(ModalRoute.withName('/ble'));
+        Navigator.of(context).popUntil(
+          ModalRoute.withName('/ble'),
+        );
       },
       child: Text(
         textButton,

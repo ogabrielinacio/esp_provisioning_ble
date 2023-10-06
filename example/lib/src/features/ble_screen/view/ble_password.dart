@@ -29,9 +29,7 @@ class _BlePasswordViewState extends State<BlePasswordView> {
         prefix = item['prefix'];
         selectedPeripheral = item['peripheralMap']['instance'];
         BlocProvider.of<BleBloc>(context).add(
-          BleConnectEvent(
-            peripheral: selectedPeripheral
-          ),
+          BleConnectEvent(peripheral: selectedPeripheral),
         );
       }
     });

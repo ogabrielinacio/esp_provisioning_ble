@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScanAgainButton extends StatelessWidget {
-  final bool? stopped; 
+  final bool? stopped;
   final String? prefix;
   const ScanAgainButton({super.key, this.stopped, this.prefix});
 
@@ -18,9 +18,8 @@ class ScanAgainButton extends StatelessWidget {
         }
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: (stopped == null || !stopped!)
-            ? Colors.grey
-            : Colors.purple,
+        backgroundColor:
+            (stopped == null || !stopped!) ? Colors.grey : Colors.purple,
       ),
       child: Text(
         'Scan again',
