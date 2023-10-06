@@ -4,13 +4,18 @@
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+In this example, we used the [flutter_ble_lib_ios_15](https://github.com/davejlin/flutter_ble_lib_ios_15) as the BLE Flutter package.
 
-A few resources to get you started if this is your first Flutter project:
+If you are also using this library, please make the following changes to your application:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Inside your `android/app/build.gradle` file, change the `minSdkVersion` to 21:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```gradle
+minSdkVersion 21
+```
+
+2. Inside your `android/build.gradle` file, update the `ext.kotlin_version` to 1.9.0:
+
+```gradle
+ext.kotlin_version = '1.9.0'
+```
