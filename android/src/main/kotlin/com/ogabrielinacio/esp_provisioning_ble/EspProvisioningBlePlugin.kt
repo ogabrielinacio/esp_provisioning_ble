@@ -22,7 +22,6 @@ class EspProvisioningBlePlugin: FlutterPlugin, MethodCallHandler {
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
-  //TODO: add IOS part
   private lateinit var channel : MethodChannel
   private lateinit var cipher: Cipher
 

@@ -15,5 +15,8 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-TODO: 
-    make example work on ios
+## TODOS:
+    TODO: add IOS part
+    TODO: make example work on ios
+    TODO:  IMPORTANT TO ADD TO MAIN README minSdkVersion 21 
+     //TODO: IMPORTANT TO add README ext.kotlin_version = '1.9.0'   
