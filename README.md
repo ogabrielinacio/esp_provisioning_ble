@@ -1,6 +1,6 @@
 # esp_provisioning_ble
 
-###### A library for provisioning a ESP32 with Bluetooth BLE
+A library for provisioning a ESP32 with Bluetooth BLE
 
 ## Getting Started
 
@@ -125,17 +125,21 @@ application-specific extensions for the provisioning or non-provisioning
 
 Following features are available for provisioning:
 
-> - Communication security at the application level
->   
->   > - `protocomm_security0` (no security)
->   > 
->   > - `protocomm_security1` (Curve25519 key exchange + AES-CTR encryption/decryption)
->   > 
->   > - `protocomm_security2` (SRP6a-based key exchange + AES-GCM encryption/decryption)
-> 
-> - Proof-of-possession (support with protocomm_security1 only)
-> 
-> - Salt and Verifier (support with protocomm_security2 only)
+* Communication security at the application level
+  
+  * `protocomm_security0` (no security)
+  
+  * `protocomm_security1` (Curve25519 key exchange + AES-CTR encryption/decryption)
+  
+  * `protocomm_security2` (SRP6a-based key exchange + AES-GCM encryption/decryption)
+
+* Proof-of-possession (support with protocomm_security1 only)
+
+* Salt and Verifier (support with protocomm_security2 only)
+
+
+
+> - 
 
 Protocomm internally uses protobuf (protocol buffers) for secure 
 session establishment. Users can choose to implement their own security 
@@ -178,4 +182,4 @@ Last update: 10/06/2023 (Octorber 6, 2023).
 ### Credits
 
 - I updated the code from the pub-package [esp_provisioning](https://github.com/unicloudvn/esp_provisioning/tree/master) to be Dart 3.0 compatible.
-- I also referenced [esp_provisioning_softap](https://github.com/nicop2000/esp_provisioning_softap), which is a Dart 3.0 compatible version from [esp_softap_provisioning]([GitHub - omert08/esp_softap_provisioning: A Flutter plugin for provisioning ESP32 modules with SoftAP](https://github.com/omert08/esp_softap_provisioning))
+- I also referenced [esp_provisioning_softap](https://github.com/nicop2000/esp_provisioning_softap), which is a Dart 3.0 compatible version from [esp_softap_provisioning](https://github.com/omert08/esp_softap_provisioning).
