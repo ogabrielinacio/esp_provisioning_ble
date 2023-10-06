@@ -1,7 +1,10 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:esp_provisioning_ble/src/connection_models.dart';
+import 'package:flutter/widgets.dart';
 
 import 'protos/generated/constants.pbenum.dart';
 import 'protos/generated/session.pb.dart';
@@ -42,7 +45,10 @@ class EspProv {
       if (await transport.checkConnect()) {
         return EstablishSessionStatus.Keymismatch;
       } else {
-        print('EstablishSession error $e');
+        debugPrint('-----------------------');
+        debugPrint('EstablishSession Error:');
+        debugPrint('$e');
+        debugPrint('-----------------------');
         return EstablishSessionStatus.Disconnected;
       }
     }

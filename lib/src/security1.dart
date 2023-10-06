@@ -31,11 +31,13 @@ class Security1 implements ProvSecurity {
     }
   }
 
+  @override
   Future<Uint8List> encrypt(Uint8List data) async {
     _verbose('raw before process ${data.toString()}');
     return crypt.crypt(data);
   }
 
+  @override
   Future<Uint8List> decrypt(Uint8List data) async {
     return encrypt(data);
   }
@@ -47,9 +49,9 @@ class Security1 implements ProvSecurity {
   Uint8List _xor(Uint8List a, Uint8List b) {
     Uint8List ret =  Uint8List(max(a.length, b.length));
     for (var i = 0; i < max(a.length, b.length); i++) {
-      final _a = i < a.length ? a[i] : 0;
-      final _b = i < b.length ? b[i] : 0;
-      ret[i] = (_a ^ _b);
+      final c = i < a.length ? a[i] : 0;
+      final d = i < b.length ? b[i] : 0;
+      ret[i] = (c ^ d);
     }
     return ret;
   }
@@ -82,7 +84,6 @@ class Security1 implements ProvSecurity {
     SessionCmd0 sc0 = SessionCmd0();
     List<int> temp = await clientKey.extractPublicKey().then((value) => value.bytes);
     sc0.clientPubkey = temp;
-    // await clientKey.extractPublicKey().byte;
     Sec1Payload sec1 = Sec1Payload();
     sec1.sc0 = sc0;
     setupRequest.sec1 = sec1;
