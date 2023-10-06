@@ -137,10 +137,6 @@ Following features are available for provisioning:
 
 * Salt and Verifier (support with protocomm_security2 only)
 
-
-
-> - 
-
 Protocomm internally uses protobuf (protocol buffers) for secure 
 session establishment. Users can choose to implement their own security 
 (even without using protobuf). Protocomm can also be used without any 
