@@ -2,7 +2,7 @@
 
 import 'dart:typed_data';
 
-import 'package:esp_provisioning_ble/esp_provisioning.dart';
+import 'package:esp_provisioning_ble/esp_provisioning_ble.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:logger/logger.dart';
 

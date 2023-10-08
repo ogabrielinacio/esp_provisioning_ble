@@ -7,7 +7,7 @@ import 'package:example/src/features/services/transport_ble.dart';
 import 'package:flutter_ble_lib_ios_15/flutter_ble_lib.dart';
 import 'package:meta/meta.dart';
 import 'package:logger/logger.dart';
-import 'package:esp_provisioning_ble/esp_provisioning.dart';
+import 'package:esp_provisioning_ble/esp_provisioning_ble.dart';
 
 part 'ble_wifi_event.dart';
 part 'ble_wifi_state.dart';
