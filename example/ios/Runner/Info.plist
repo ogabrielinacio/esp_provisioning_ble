@@ -45,5 +45,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Bluetooth -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Your own description of the purpose.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+	  <string>bluetooth-central</string>
+	</array>
+	<!-- Bluetooth -->
 </dict>
 </plist>
