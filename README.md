@@ -183,11 +183,9 @@ Last update: 10/06/2023 (Octorber 6, 2023).
 
 #### TODOS:
 
-- add IOS part.
+- Test the IOS part.
 
-- make example  project work on IOS.
-
-- Test and make example of package with others bluetooth packages.
+- Test and create examples of the package with others Bluetooth packages.
 
 ### Credits
 
