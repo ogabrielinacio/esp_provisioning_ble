@@ -39,13 +39,13 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       var sessionStatus = await prov.establishSession();
       log.d("Session Status = $sessionStatus");
       switch (sessionStatus) {
-        case EstablishSessionStatus.Connected:
+        case EstablishSessionStatus.connected:
           {
             emit(BleWifiEstablishedConnectionState());
           }
-        case EstablishSessionStatus.Disconnected:
+        case EstablishSessionStatus.disconnected:
           emit(BleWifiEstablishedConnectionFailedState());
-        case EstablishSessionStatus.Keymismatch:
+        case EstablishSessionStatus.keymismatch:
           emit(BleWifiEstablishedConnectionKeyMismatch());
       }
     });

@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -14,9 +12,9 @@ import 'security.dart';
 import 'transport.dart';
 
 enum EstablishSessionStatus {
-  Connected,
-  Disconnected,
-  Keymismatch,
+  connected,
+  disconnected,
+  keymismatch,
 }
 
 class EspProv {
@@ -31,7 +29,7 @@ class EspProv {
       while (await transport.checkConnect()) {
         var request = await security.securitySession(responseData);
         if (request == null) {
-          return EstablishSessionStatus.Connected;
+          return EstablishSessionStatus.connected;
         }
         var response = await transport.sendReceive(
             'prov-session', request.writeToBuffer());
@@ -40,16 +38,16 @@ class EspProv {
         }
         responseData = SessionData.fromBuffer(response);
       }
-      return EstablishSessionStatus.Disconnected;
+      return EstablishSessionStatus.disconnected;
     } catch (e) {
       if (await transport.checkConnect()) {
-        return EstablishSessionStatus.Keymismatch;
+        return EstablishSessionStatus.keymismatch;
       } else {
         debugPrint('-----------------------');
         debugPrint('EstablishSession Error:');
         debugPrint('$e');
         debugPrint('-----------------------');
-        return EstablishSessionStatus.Disconnected;
+        return EstablishSessionStatus.disconnected;
       }
     }
   }

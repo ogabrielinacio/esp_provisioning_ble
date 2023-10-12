@@ -14,14 +14,20 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class WiFiConfigMsgType extends $pb.ProtobufEnum {
-  static const WiFiConfigMsgType TypeCmdGetStatus = WiFiConfigMsgType._(0, _omitEnumNames ? '' : 'TypeCmdGetStatus');
-  static const WiFiConfigMsgType TypeRespGetStatus = WiFiConfigMsgType._(1, _omitEnumNames ? '' : 'TypeRespGetStatus');
-  static const WiFiConfigMsgType TypeCmdSetConfig = WiFiConfigMsgType._(2, _omitEnumNames ? '' : 'TypeCmdSetConfig');
-  static const WiFiConfigMsgType TypeRespSetConfig = WiFiConfigMsgType._(3, _omitEnumNames ? '' : 'TypeRespSetConfig');
-  static const WiFiConfigMsgType TypeCmdApplyConfig = WiFiConfigMsgType._(4, _omitEnumNames ? '' : 'TypeCmdApplyConfig');
-  static const WiFiConfigMsgType TypeRespApplyConfig = WiFiConfigMsgType._(5, _omitEnumNames ? '' : 'TypeRespApplyConfig');
+  static const WiFiConfigMsgType TypeCmdGetStatus =
+      WiFiConfigMsgType._(0, _omitEnumNames ? '' : 'TypeCmdGetStatus');
+  static const WiFiConfigMsgType TypeRespGetStatus =
+      WiFiConfigMsgType._(1, _omitEnumNames ? '' : 'TypeRespGetStatus');
+  static const WiFiConfigMsgType TypeCmdSetConfig =
+      WiFiConfigMsgType._(2, _omitEnumNames ? '' : 'TypeCmdSetConfig');
+  static const WiFiConfigMsgType TypeRespSetConfig =
+      WiFiConfigMsgType._(3, _omitEnumNames ? '' : 'TypeRespSetConfig');
+  static const WiFiConfigMsgType TypeCmdApplyConfig =
+      WiFiConfigMsgType._(4, _omitEnumNames ? '' : 'TypeCmdApplyConfig');
+  static const WiFiConfigMsgType TypeRespApplyConfig =
+      WiFiConfigMsgType._(5, _omitEnumNames ? '' : 'TypeRespApplyConfig');
 
-  static const $core.List<WiFiConfigMsgType> values = <WiFiConfigMsgType> [
+  static const $core.List<WiFiConfigMsgType> values = <WiFiConfigMsgType>[
     TypeCmdGetStatus,
     TypeRespGetStatus,
     TypeCmdSetConfig,
@@ -30,11 +36,11 @@ class WiFiConfigMsgType extends $pb.ProtobufEnum {
     TypeRespApplyConfig,
   ];
 
-  static final $core.Map<$core.int, WiFiConfigMsgType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static final $core.Map<$core.int, WiFiConfigMsgType> _byValue =
+      $pb.ProtobufEnum.initByValue(values);
   static WiFiConfigMsgType? valueOf($core.int value) => _byValue[value];
 
   const WiFiConfigMsgType._($core.int v, $core.String n) : super(v, n);
 }
-
 
 const _omitEnumNames = $core.bool.fromEnvironment('protobuf.omit_enum_names');

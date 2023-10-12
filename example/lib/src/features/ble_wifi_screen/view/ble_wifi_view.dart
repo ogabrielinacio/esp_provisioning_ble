@@ -15,8 +15,9 @@ class BleWifiView extends StatefulWidget {
 }
 
 class _BleWifiViewState extends State<BleWifiView> {
-
-  void _showDialog({required String wifi, required dynamic instance,
+  void _showDialog(
+      {required String wifi,
+      required dynamic instance,
       required BuildContext context}) {
     showDialog(
       context: context,
@@ -46,15 +47,15 @@ class _BleWifiViewState extends State<BleWifiView> {
       ),
       body: BlocBuilder<BleWifiBloc, BleWifiState>(
         builder: (context, state) {
-          if(state is BleWifiEstablishedConnectionState){
+          if (state is BleWifiEstablishedConnectionState) {
             return Center(
               child: SizedBox(
                 width: sizeWidth * 0.8,
                 child: const ScanAgainWifiButton(),
               ),
             );
-          }else if (state is BleWifiScannedNetworksState){
-          return Center(
+          } else if (state is BleWifiScannedNetworksState) {
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -67,16 +68,17 @@ class _BleWifiViewState extends State<BleWifiView> {
                   SizedBox(
                     height: sizeHeight * 0.6,
                     child: ScanList(
-                      icon: Icons.wifi,
-                      items: state.foundedNetworks,
-                      onTap: (Map<String, dynamic> item, BuildContext context) {
+                        icon: Icons.wifi,
+                        items: state.foundedNetworks,
+                        onTap:
+                            (Map<String, dynamic> item, BuildContext context) {
                           _showDialog(
                             wifi: item["ssid"],
                             instance: item["instance"],
                             context: context,
                           );
-                      }),
-                    ),
+                        }),
+                  ),
                   SizedBox(
                     width: sizeWidth * 0.8,
                     child: const ScanAgainWifiButton(),
@@ -119,8 +121,8 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ),
               ],
             );
-          } else if (state is BleWifiConnectedState){
-            return   Column(
+          } else if (state is BleWifiConnectedState) {
+            return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const Center(
@@ -137,7 +139,7 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ),
               ],
             );
-          } else if (state is BleWifiConnectionFailedState){
+          } else if (state is BleWifiConnectionFailedState) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -149,8 +151,8 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ),
               ],
             );
-          } else if (state is BleWifiDisconnectedState){
-            return  const Column(
+          } else if (state is BleWifiDisconnectedState) {
+            return const Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Center(
@@ -161,8 +163,7 @@ class _BleWifiViewState extends State<BleWifiView> {
                 ),
               ],
             );
-          }
-          else {
+          } else {
             return const SpinKitRipple(
               color: Colors.purple,
             );

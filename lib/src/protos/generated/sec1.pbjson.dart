@@ -33,7 +33,13 @@ final $typed_data.Uint8List sec1MsgTypeDescriptor = $convert.base64Decode(
 const SessionCmd1$json = {
   '1': 'SessionCmd1',
   '2': [
-    {'1': 'client_verify_data', '3': 2, '4': 1, '5': 12, '10': 'clientVerifyData'},
+    {
+      '1': 'client_verify_data',
+      '3': 2,
+      '4': 1,
+      '5': 12,
+      '10': 'clientVerifyData'
+    },
   ],
 };
 
@@ -47,7 +53,13 @@ const SessionResp1$json = {
   '1': 'SessionResp1',
   '2': [
     {'1': 'status', '3': 1, '4': 1, '5': 14, '6': '.Status', '10': 'status'},
-    {'1': 'device_verify_data', '3': 3, '4': 1, '5': 12, '10': 'deviceVerifyData'},
+    {
+      '1': 'device_verify_data',
+      '3': 3,
+      '4': 1,
+      '5': 12,
+      '10': 'deviceVerifyData'
+    },
   ],
 };
 
@@ -89,10 +101,42 @@ const Sec1Payload$json = {
   '1': 'Sec1Payload',
   '2': [
     {'1': 'msg', '3': 1, '4': 1, '5': 14, '6': '.Sec1MsgType', '10': 'msg'},
-    {'1': 'sc0', '3': 20, '4': 1, '5': 11, '6': '.SessionCmd0', '9': 0, '10': 'sc0'},
-    {'1': 'sr0', '3': 21, '4': 1, '5': 11, '6': '.SessionResp0', '9': 0, '10': 'sr0'},
-    {'1': 'sc1', '3': 22, '4': 1, '5': 11, '6': '.SessionCmd1', '9': 0, '10': 'sc1'},
-    {'1': 'sr1', '3': 23, '4': 1, '5': 11, '6': '.SessionResp1', '9': 0, '10': 'sr1'},
+    {
+      '1': 'sc0',
+      '3': 20,
+      '4': 1,
+      '5': 11,
+      '6': '.SessionCmd0',
+      '9': 0,
+      '10': 'sc0'
+    },
+    {
+      '1': 'sr0',
+      '3': 21,
+      '4': 1,
+      '5': 11,
+      '6': '.SessionResp0',
+      '9': 0,
+      '10': 'sr0'
+    },
+    {
+      '1': 'sc1',
+      '3': 22,
+      '4': 1,
+      '5': 11,
+      '6': '.SessionCmd1',
+      '9': 0,
+      '10': 'sc1'
+    },
+    {
+      '1': 'sr1',
+      '3': 23,
+      '4': 1,
+      '5': 11,
+      '6': '.SessionResp1',
+      '9': 0,
+      '10': 'sr1'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -105,4 +149,3 @@ final $typed_data.Uint8List sec1PayloadDescriptor = $convert.base64Decode(
     'EoCzIMLlNlc3Npb25DbWQwSABSA3NjMBIhCgNzcjAYFSABKAsyDS5TZXNzaW9uUmVzcDBIAFID'
     'c3IwEiAKA3NjMRgWIAEoCzIMLlNlc3Npb25DbWQxSABSA3NjMRIhCgNzcjEYFyABKAsyDS5TZX'
     'NzaW9uUmVzcDFIAFIDc3IxQgkKB3BheWxvYWQ=');
-

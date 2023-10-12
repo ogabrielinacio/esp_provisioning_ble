@@ -136,18 +136,16 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                         height: 0.01,
                       ),
                 SizedBox(
-                  width: sizeWidth * 0.8,
-                    child: 
-                    ScanAgainButton(
+                    width: sizeWidth * 0.8,
+                    child: ScanAgainButton(
                       stopped: state.stopped,
                       prefix: _controller.text,
-                    )
-                ),
+                    )),
                 customPadding,
               ],
             );
           } else if (state is BleEmptyList) {
-            return  Center(
+            return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

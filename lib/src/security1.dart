@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
-import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:cryptography/cryptography.dart';
+import 'package:flutter/foundation.dart';
 
 import 'protos/generated/sec1.pb.dart';
 import 'protos/generated/session.pb.dart';
@@ -22,12 +22,14 @@ class Security1 implements ProvSecurity {
 
   Security1(
       {this.pop,
-      this.sessionState = SecurityState.REQUEST1,
+      this.sessionState = SecurityState.request1,
       this.verbose = false});
 
   void _verbose(dynamic data) {
     if (verbose) {
-      print('+++ $data +++');
+      if (kDebugMode) {
+        print('+++ $data +++');
+      }
     }
   }
 
@@ -47,7 +49,7 @@ class Security1 implements ProvSecurity {
   }
 
   Uint8List _xor(Uint8List a, Uint8List b) {
-    Uint8List ret =  Uint8List(max(a.length, b.length));
+    Uint8List ret = Uint8List(max(a.length, b.length));
     for (var i = 0; i < max(a.length, b.length); i++) {
       final c = i < a.length ? a[i] : 0;
       final d = i < b.length ? b[i] : 0;
@@ -58,17 +60,17 @@ class Security1 implements ProvSecurity {
 
   @override
   Future<SessionData?> securitySession(SessionData responseData) async {
-    if (sessionState == SecurityState.REQUEST1) {
-      sessionState = SecurityState.RESPONSE1_REQUEST2;
+    if (sessionState == SecurityState.request1) {
+      sessionState = SecurityState.response1Request2;
       return await setup0Request();
     }
-    if (sessionState == SecurityState.RESPONSE1_REQUEST2) {
-      sessionState = SecurityState.RESPONSE2;
+    if (sessionState == SecurityState.response1Request2) {
+      sessionState = SecurityState.response2;
       await setup0Response(responseData);
       return await setup1Request(responseData);
     }
-    if (sessionState == SecurityState.RESPONSE2) {
-      sessionState = SecurityState.FINISH;
+    if (sessionState == SecurityState.response2) {
+      sessionState = SecurityState.finish;
       await setup1Response(responseData);
       return null;
     }
@@ -77,18 +79,18 @@ class Security1 implements ProvSecurity {
 
   Future<SessionData> setup0Request() async {
     _verbose('setup0Request');
-    var setupRequest =  SessionData();
+    var setupRequest = SessionData();
 
     setupRequest.secVer = SecSchemeVersion.SecScheme1;
     await _generateKey();
     SessionCmd0 sc0 = SessionCmd0();
-    List<int> temp = await clientKey.extractPublicKey().then((value) => value.bytes);
+    List<int> temp =
+        await clientKey.extractPublicKey().then((value) => value.bytes);
     sc0.clientPubkey = temp;
     Sec1Payload sec1 = Sec1Payload();
     sec1.sc0 = sc0;
     setupRequest.sec1 = sec1;
-    _verbose(
-        'setup0Request: clientPubkey = ${temp.toString()}');
+    _verbose('setup0Request: clientPubkey = ${temp.toString()}');
     return setupRequest;
   }
 
@@ -97,7 +99,8 @@ class Security1 implements ProvSecurity {
     if (setupResp.secVer != SecSchemeVersion.SecScheme1) {
       throw Exception('Invalid sec scheme');
     }
-    devicePublicKey = SimplePublicKey(setupResp.sec1.sr0.devicePubkey,type: x25519.keyPairType);
+    devicePublicKey = SimplePublicKey(setupResp.sec1.sr0.devicePubkey,
+        type: x25519.keyPairType);
     deviceRandom = Uint8List.fromList(setupResp.sec1.sr0.deviceRandom);
 
     _verbose(
@@ -105,8 +108,7 @@ class Security1 implements ProvSecurity {
     _verbose('setup0Response:Device random ${deviceRandom.toString()}');
 
     final sharedKey = await x25519.sharedSecretKey(
-        keyPair: clientKey,
-        remotePublicKey: devicePublicKey);
+        keyPair: clientKey, remotePublicKey: devicePublicKey);
     var sharedK = await sharedKey.extractBytes();
     _verbose('setup0Response: Shared key calculated: ${sharedK.toString()}');
     if (pop != null) {
@@ -114,7 +116,8 @@ class Security1 implements ProvSecurity {
       sink.add(utf8.encode(pop!));
       sink.close();
       final hash = await sink.hash();
-      sharedK = _xor(Uint8List.fromList(sharedK), Uint8List.fromList(hash.bytes));
+      sharedK =
+          _xor(Uint8List.fromList(sharedK), Uint8List.fromList(hash.bytes));
       _verbose(
           'setup0Response: pop: $pop, hash: ${hash.bytes.toString()} sharedK: ${sharedK.toString()}');
     }
@@ -146,11 +149,12 @@ class Security1 implements ProvSecurity {
     if (setupResp.secVer == SecSchemeVersion.SecScheme1) {
       final deviceVerify = setupResp.sec1.sr1.deviceVerifyData;
       _verbose('Device verify: ${deviceVerify.toString()}');
-      final encClientPubkey =
-          await decrypt(Uint8List.fromList(setupResp.sec1.sr1.deviceVerifyData));
+      final encClientPubkey = await decrypt(
+          Uint8List.fromList(setupResp.sec1.sr1.deviceVerifyData));
       _verbose('Enc client pubkey: ${encClientPubkey.toString()}');
       Function eq = const ListEquality().equals;
-      List<int> temp = await clientKey.extractPublicKey().then((value) => value.bytes);
+      List<int> temp =
+          await clientKey.extractPublicKey().then((value) => value.bytes);
       if (!eq(encClientPubkey, temp)) {
         throw Exception('Mismatch in device verify');
       }

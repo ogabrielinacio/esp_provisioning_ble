@@ -33,4 +33,3 @@ final $typed_data.Uint8List statusDescriptor = $convert.base64Decode(
     'CgZTdGF0dXMSCwoHU3VjY2VzcxAAEhQKEEludmFsaWRTZWNTY2hlbWUQARIQCgxJbnZhbGlkUH'
     'JvdG8QAhITCg9Ub29NYW55U2Vzc2lvbnMQAxITCg9JbnZhbGlkQXJndW1lbnQQBBIRCg1JbnRl'
     'cm5hbEVycm9yEAUSDwoLQ3J5cHRvRXJyb3IQBhISCg5JbnZhbGlkU2Vzc2lvbhAH');
-

@@ -1,14 +1,12 @@
-// ignore_for_file: constant_identifier_names
-
 import 'dart:typed_data';
 
 import 'protos/generated/session.pb.dart';
 
 enum SecurityState {
-  REQUEST1,
-  RESPONSE1_REQUEST2,
-  RESPONSE2,
-  FINISH,
+  request1,
+  response1Request2,
+  response2,
+  finish,
 }
 
 abstract class ProvSecurity {

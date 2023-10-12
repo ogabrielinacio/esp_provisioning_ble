@@ -39,9 +39,10 @@ const WifiConnectFailedReason$json = {
 };
 
 /// Descriptor for `WifiConnectFailedReason`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List wifiConnectFailedReasonDescriptor = $convert.base64Decode(
-    'ChdXaWZpQ29ubmVjdEZhaWxlZFJlYXNvbhINCglBdXRoRXJyb3IQABITCg9OZXR3b3JrTm90Rm'
-    '91bmQQAQ==');
+final $typed_data.Uint8List wifiConnectFailedReasonDescriptor =
+    $convert.base64Decode(
+        'ChdXaWZpQ29ubmVjdEZhaWxlZFJlYXNvbhINCglBdXRoRXJyb3IQABITCg9OZXR3b3JrTm90Rm'
+        '91bmQQAQ==');
 
 @$core.Deprecated('Use wifiAuthModeDescriptor instead')
 const WifiAuthMode$json = {
@@ -66,7 +67,14 @@ const WifiConnectedState$json = {
   '1': 'WifiConnectedState',
   '2': [
     {'1': 'ip4_addr', '3': 1, '4': 1, '5': 9, '10': 'ip4Addr'},
-    {'1': 'auth_mode', '3': 2, '4': 1, '5': 14, '6': '.WifiAuthMode', '10': 'authMode'},
+    {
+      '1': 'auth_mode',
+      '3': 2,
+      '4': 1,
+      '5': 14,
+      '6': '.WifiAuthMode',
+      '10': 'authMode'
+    },
     {'1': 'ssid', '3': 3, '4': 1, '5': 12, '10': 'ssid'},
     {'1': 'bssid', '3': 4, '4': 1, '5': 12, '10': 'bssid'},
     {'1': 'channel', '3': 5, '4': 1, '5': 5, '10': 'channel'},
@@ -78,4 +86,3 @@ final $typed_data.Uint8List wifiConnectedStateDescriptor = $convert.base64Decode
     'ChJXaWZpQ29ubmVjdGVkU3RhdGUSGQoIaXA0X2FkZHIYASABKAlSB2lwNEFkZHISKgoJYXV0aF'
     '9tb2RlGAIgASgOMg0uV2lmaUF1dGhNb2RlUghhdXRoTW9kZRISCgRzc2lkGAMgASgMUgRzc2lk'
     'EhQKBWJzc2lkGAQgASgMUgVic3NpZBIYCgdjaGFubmVsGAUgASgFUgdjaGFubmVs');
-

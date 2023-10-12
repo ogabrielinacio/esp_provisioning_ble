@@ -55,8 +55,8 @@ const RespScanStart$json = {
 };
 
 /// Descriptor for `RespScanStart`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List respScanStartDescriptor = $convert.base64Decode(
-    'Cg1SZXNwU2NhblN0YXJ0');
+final $typed_data.Uint8List respScanStartDescriptor =
+    $convert.base64Decode('Cg1SZXNwU2NhblN0YXJ0');
 
 @$core.Deprecated('Use cmdScanStatusDescriptor instead')
 const CmdScanStatus$json = {
@@ -64,8 +64,8 @@ const CmdScanStatus$json = {
 };
 
 /// Descriptor for `CmdScanStatus`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List cmdScanStatusDescriptor = $convert.base64Decode(
-    'Cg1DbWRTY2FuU3RhdHVz');
+final $typed_data.Uint8List cmdScanStatusDescriptor =
+    $convert.base64Decode('Cg1DbWRTY2FuU3RhdHVz');
 
 @$core.Deprecated('Use respScanStatusDescriptor instead')
 const RespScanStatus$json = {
@@ -117,7 +117,14 @@ final $typed_data.Uint8List wiFiScanResultDescriptor = $convert.base64Decode(
 const RespScanResult$json = {
   '1': 'RespScanResult',
   '2': [
-    {'1': 'entries', '3': 1, '4': 3, '5': 11, '6': '.WiFiScanResult', '10': 'entries'},
+    {
+      '1': 'entries',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.WiFiScanResult',
+      '10': 'entries'
+    },
   ],
 };
 
@@ -132,12 +139,60 @@ const WiFiScanPayload$json = {
   '2': [
     {'1': 'msg', '3': 1, '4': 1, '5': 14, '6': '.WiFiScanMsgType', '10': 'msg'},
     {'1': 'status', '3': 2, '4': 1, '5': 14, '6': '.Status', '10': 'status'},
-    {'1': 'cmd_scan_start', '3': 10, '4': 1, '5': 11, '6': '.CmdScanStart', '9': 0, '10': 'cmdScanStart'},
-    {'1': 'resp_scan_start', '3': 11, '4': 1, '5': 11, '6': '.RespScanStart', '9': 0, '10': 'respScanStart'},
-    {'1': 'cmd_scan_status', '3': 12, '4': 1, '5': 11, '6': '.CmdScanStatus', '9': 0, '10': 'cmdScanStatus'},
-    {'1': 'resp_scan_status', '3': 13, '4': 1, '5': 11, '6': '.RespScanStatus', '9': 0, '10': 'respScanStatus'},
-    {'1': 'cmd_scan_result', '3': 14, '4': 1, '5': 11, '6': '.CmdScanResult', '9': 0, '10': 'cmdScanResult'},
-    {'1': 'resp_scan_result', '3': 15, '4': 1, '5': 11, '6': '.RespScanResult', '9': 0, '10': 'respScanResult'},
+    {
+      '1': 'cmd_scan_start',
+      '3': 10,
+      '4': 1,
+      '5': 11,
+      '6': '.CmdScanStart',
+      '9': 0,
+      '10': 'cmdScanStart'
+    },
+    {
+      '1': 'resp_scan_start',
+      '3': 11,
+      '4': 1,
+      '5': 11,
+      '6': '.RespScanStart',
+      '9': 0,
+      '10': 'respScanStart'
+    },
+    {
+      '1': 'cmd_scan_status',
+      '3': 12,
+      '4': 1,
+      '5': 11,
+      '6': '.CmdScanStatus',
+      '9': 0,
+      '10': 'cmdScanStatus'
+    },
+    {
+      '1': 'resp_scan_status',
+      '3': 13,
+      '4': 1,
+      '5': 11,
+      '6': '.RespScanStatus',
+      '9': 0,
+      '10': 'respScanStatus'
+    },
+    {
+      '1': 'cmd_scan_result',
+      '3': 14,
+      '4': 1,
+      '5': 11,
+      '6': '.CmdScanResult',
+      '9': 0,
+      '10': 'cmdScanResult'
+    },
+    {
+      '1': 'resp_scan_result',
+      '3': 15,
+      '4': 1,
+      '5': 11,
+      '6': '.RespScanResult',
+      '9': 0,
+      '10': 'respScanResult'
+    },
   ],
   '8': [
     {'1': 'payload'},
@@ -155,4 +210,3 @@ final $typed_data.Uint8List wiFiScanPayloadDescriptor = $convert.base64Decode(
     'c3VsdBgOIAEoCzIOLkNtZFNjYW5SZXN1bHRIAFINY21kU2NhblJlc3VsdBI7ChByZXNwX3NjYW'
     '5fcmVzdWx0GA8gASgLMg8uUmVzcFNjYW5SZXN1bHRIAFIOcmVzcFNjYW5SZXN1bHRCCQoHcGF5'
     'bG9hZA==');
-
