@@ -8,7 +8,7 @@ A library for provisioning a ESP32 with Bluetooth BLE
 
 The package has an abstract class called `ProvTransport`, that you need to implement using your preferred Bluetooth package. In the [example](https://github.com/ogabrielinacio/esp_provisioning_ble/tree/main/example)
 
-folder there is an implementation of `ProvTransport` using the package [flutter_ble_lib_ios_15]([GitHub - davejlin/flutter_ble_lib_ios_15](https://github.com/davejlin/flutter_ble_lib_ios_15)) 
+folder there is an implementation of `ProvTransport` using the package [flutter_ble_lib_ios_15](https://github.com/davejlin/flutter_ble_lib_ios_15) 
 
 ```dart
 prov = EspProv(
@@ -189,5 +189,5 @@ Last update: 10/06/2023 (Octorber 6, 2023).
 
 ### Credits
 
-- I updated the code from the pub-package [esp_provisioning](https://github.com/unicloudvn/esp_provisioning/tree/master) to be Dart 3.0 compatible.
+- Code based on [esp_provisioning](https://github.com/unicloudvn/esp_provisioning/tree/master).
 - I also referenced [esp_provisioning_softap](https://github.com/nicop2000/esp_provisioning_softap), which is a Dart 3.0 compatible version from [esp_softap_provisioning](https://github.com/omert08/esp_softap_provisioning).
