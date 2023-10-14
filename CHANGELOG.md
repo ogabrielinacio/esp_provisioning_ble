@@ -6,4 +6,8 @@
 
 ## [0.0.2] - 10-12-2023 (October 12, 2023)
 
-* Style: Correct lint errors to increase pub points :)
+* style: Correct lint errors to increase pub points :)
+
+## [0.0.3] - 10-14-2023 (October 14, 2023)
+
+- style: more lint correct errors.
