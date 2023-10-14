@@ -1,6 +1,6 @@
 name: esp_provisioning_ble
 description: A Flutter plugin that simplifies the provisioning configuration of ESP32 modules using Bluetooth Low Energy (BLE). 
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/ogabrielinacio/esp_provisioning_ble
 
 environment:

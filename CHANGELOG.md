@@ -11,3 +11,7 @@
 ## [0.0.3] - 10-14-2023 (October 14, 2023)
 
 - style: more lint correct errors.
+
+## [0.0.4] - 10-14-2023 (October 14, 2023)
+
+- docs: fix CHANGELOG.md.
