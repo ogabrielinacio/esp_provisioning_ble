@@ -186,6 +186,8 @@ Last update: 10/06/2023 (Octorber 6, 2023).
 - Test the IOS part.
 
 - Test and create examples of the package with others Bluetooth packages.
+  
+  * flutter_blue_plus
 
 ### Credits
 
