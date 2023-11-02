@@ -67,17 +67,22 @@ class _BleWifiViewState extends State<BleWifiView> {
                   ),
                   SizedBox(
                     height: sizeHeight * 0.6,
-                    child: ScanList(
-                        icon: Icons.wifi,
-                        items: state.foundedNetworks,
-                        onTap:
-                            (Map<String, dynamic> item, BuildContext context) {
-                          _showDialog(
-                            wifi: item["ssid"],
-                            instance: item["instance"],
-                            context: context,
-                          );
-                        }),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ScanList(
+                            icon: Icons.wifi,
+                            items: state.foundedNetworks,
+                            onTap: (Map<String, dynamic> item,
+                                BuildContext context) {
+                              _showDialog(
+                                wifi: item["ssid"],
+                                instance: item["instance"],
+                                context: context,
+                              );
+                            }),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     width: sizeWidth * 0.8,
