@@ -33,6 +33,9 @@ class _BleWifiViewState extends State<BleWifiView> {
   Widget build(BuildContext context) {
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
+    var customPadding = SizedBox(
+      height: sizeHeight * 0.05,
+    );
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -59,35 +62,30 @@ class _BleWifiViewState extends State<BleWifiView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  customPadding,
                   Text(
                     'List of founded Networks',
                     style: TextStyle(
                       fontSize: sizeHeight * 0.023,
                     ),
                   ),
-                  SizedBox(
-                    height: sizeHeight * 0.6,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ScanList(
-                            icon: Icons.wifi,
-                            items: state.foundedNetworks,
-                            onTap: (Map<String, dynamic> item,
-                                BuildContext context) {
-                              _showDialog(
-                                wifi: item["ssid"],
-                                instance: item["instance"],
-                                context: context,
-                              );
-                            }),
-                      ],
-                    ),
-                  ),
+                  customPadding,
+                  ScanList(
+                      icon: Icons.wifi,
+                      items: state.foundedNetworks,
+                      onTap: (Map<String, dynamic> item, BuildContext context) {
+                        _showDialog(
+                          wifi: item["ssid"],
+                          instance: item["instance"],
+                          context: context,
+                        );
+                      }),
                   SizedBox(
                     width: sizeWidth * 0.8,
                     child: const ScanAgainWifiButton(),
                   ),
+                  customPadding,
+                  customPadding,
                 ],
               ),
             );

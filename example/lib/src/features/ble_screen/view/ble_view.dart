@@ -142,6 +142,7 @@ class _BleViewState extends State<BleView> with WidgetsBindingObserver {
                       prefix: _controller.text,
                     )),
                 customPadding,
+                customPadding,
               ],
             );
           } else if (state is BleEmptyList) {
