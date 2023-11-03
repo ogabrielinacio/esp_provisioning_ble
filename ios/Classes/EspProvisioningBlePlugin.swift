@@ -2,6 +2,7 @@ import Flutter
 import UIKit
 
 public class EspProvisioningBlePlugin: NSObject, FlutterPlugin {
+  private var cryptoAES: CryptoAES?
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "esp_provisioning_ble", binaryMessenger: registrar.messenger())
     let instance = EspProvisioningBlePlugin()
