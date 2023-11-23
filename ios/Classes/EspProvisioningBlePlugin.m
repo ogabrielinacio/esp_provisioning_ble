@@ -10,6 +10,6 @@
 
 @implementation EspProvisioningBlePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftEspProvisioningPlugin registerWithRegistrar:registrar];
+  [SwiftEspProvisioningBlePlugin registerWithRegistrar:registrar];
 }
 @end
