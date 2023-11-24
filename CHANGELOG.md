@@ -1,8 +1,8 @@
-## [0.0.5] - 11-24-2023 (November 24, 2023)
+## [1.0.0] - 11-24-2023 (November 24, 2023)
 
 #### Bug Fixes:
 
-* Fixed an issue where the app would crash on iOS devices.
+* Fixed an issue where the app crash on iOS devices.
 
 ## [0.0.4] - 10-14-2023 (October 14, 2023)
 
