@@ -114,18 +114,19 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
       });
     });
 
-    on<BleWifiConnectedEvent>((event, emit) {
+    on<BleWifiDisposeGetStatusEvent>((event, emit) {
       disposeGettingStatusTimer();
+    });
+
+    on<BleWifiConnectedEvent>((event, emit) {
       emit(BleWifiConnectedState());
     });
 
     on<BleWifiDisconnectedEvent>((event, emit) {
-      disposeGettingStatusTimer();
       emit(BleWifiDisconnectedState());
     });
 
     on<BleWifiConnectionFailedEvent>((event, emit) {
-      disposeGettingStatusTimer();
       if (event.failedReason == WifiConnectFailedReason.AuthError) {
         emit(
           BleWifiConnectionFailedState(failedReason: "Authentication Error"),

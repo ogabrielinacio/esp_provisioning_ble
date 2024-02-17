@@ -15,6 +15,13 @@ class BleWifiView extends StatefulWidget {
 }
 
 class _BleWifiViewState extends State<BleWifiView> {
+  late BleWifiBloc _bleWifiBloc;
+  @override
+  void dispose() {
+    _bleWifiBloc.add(BleWifiDisposeGetStatusEvent());
+    super.dispose();
+  }
+
   void _showDialog(
       {required String wifi,
       required dynamic instance,
@@ -33,6 +40,7 @@ class _BleWifiViewState extends State<BleWifiView> {
   Widget build(BuildContext context) {
     double sizeWidth = MediaQuery.of(context).size.width;
     double sizeHeight = MediaQuery.of(context).size.height;
+    _bleWifiBloc = BlocProvider.of<BleWifiBloc>(context);
     var customPadding = SizedBox(
       height: sizeHeight * 0.05,
     );
@@ -147,7 +155,8 @@ class _BleWifiViewState extends State<BleWifiView> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Center(
-                  child: Text("Failed!!! ${state.failedReason}"),
+                  child: Text(
+                      "Failed!!! ${state.failedReason} \nIf your ESP32 has the function to retries, wait some time before click the button"),
                 ),
                 const RestartApplicationButton(
                   textButton: "Restart",

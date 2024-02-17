@@ -18,6 +18,8 @@ class BleWifiScanWifiNetworksEvent extends BleWifiEvent {}
 
 class BleWifiGetStatusEvent extends BleWifiEvent {}
 
+class BleWifiDisposeGetStatusEvent extends BleWifiEvent {}
+
 class BleWifiSendConfigEvent extends BleWifiEvent {
   final String ssid;
   final String password;
