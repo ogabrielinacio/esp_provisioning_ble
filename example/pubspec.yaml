@@ -29,6 +29,7 @@ dependencies:
   logger: ^2.0.1
   app_settings: ^5.0.0
   meta: ^1.9.1
+  flutter_blue_plus: ^1.31.15
 
 dev_dependencies:
   flutter_test:
