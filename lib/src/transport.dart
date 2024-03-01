@@ -1,7 +1,11 @@
 import 'dart:typed_data';
 
-/// A set of necessary methods to implement with a Bluetooth package
-/// and provide the provisioning transport functionality to [EspProv].
+/// An abstract class that must be implemented in a higher layer of software
+/// (eg. a Flutter Bluetooth plugin). It provides the provisioning transport
+/// functionality to [EspProv].
+///
+/// It must have at least the following methods implemented: `connect`,
+/// `checkConnect`, `disconnect` and `sendReceive`.
 abstract class ProvTransport {
   /// Starts the connection with a device. Must return `true` if it succeeds
   /// in connecting, `false` if it fails.
