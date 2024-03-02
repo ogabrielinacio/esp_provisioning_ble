@@ -47,6 +47,12 @@ class BleWifiBloc extends Bloc<BleWifiEvent, BleWifiState> {
           emit(BleWifiEstablishedConnectionFailedState());
         case EstablishSessionStatus.keymismatch:
           emit(BleWifiEstablishedConnectionKeyMismatch());
+        case EstablishSessionStatus.bufferlengtherror:
+        // TODO: Handle this case.
+        case EstablishSessionStatus.unexpectedstate:
+        // TODO: Handle this case.
+        case EstablishSessionStatus.unknownerror:
+        // TODO: Handle this case.
       }
     });
 
