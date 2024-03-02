@@ -45,7 +45,21 @@ class EspProv {
       return EstablishSessionStatus.disconnected;
     } catch (e) {
       if (await transport.checkConnect()) {
-        return EstablishSessionStatus.keymismatch;
+        // TODO: review how to handle the possible errors.
+        // TODO: confirm the possible errors with flutter_ble_lib_ios_15 and flutter_blue_plus
+        // * It is just a possible way to handle the errors.
+        // * The ideal would be to have some standardized response to catch the exceptions,
+        // * But it must be confirmed.
+        String errorMessage = e.toString();
+        if (errorMessage.contains('Unexpected state')) {
+          return EstablishSessionStatus.unexpectedstate;
+        } else if (errorMessage.contains('Key mismatch')) {
+          return EstablishSessionStatus.keymismatch;
+        } else if (errorMessage.contains('Empty response')) {
+          return EstablishSessionStatus.bufferlengtherror;
+        } else {
+          return EstablishSessionStatus.unknownerror;
+        }
       } else {
         debugPrint('-----------------------');
         debugPrint('EstablishSession Error:');
