@@ -15,6 +15,10 @@ enum EstablishSessionStatus {
   connected,
   disconnected,
   keymismatch,
+  // TODO: review this values in the PR
+  bufferlengtherror,
+  unexpectedstate,
+  unknownerror
 }
 
 class EspProv {
