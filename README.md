@@ -6,6 +6,37 @@ A library for provisioning a ESP32 with Bluetooth BLE
   <a href="https://ko-fi.com/ogabrielinacio" target="_blank"> <img src="https://ko-fi.com/img/githubbutton_sm.svg"/> </a> 
 </p>
 
+
+
+#IMPORTANT!!!!!!
+
+
+#IMPORTANT!!!!!!
+
+
+The officially repository is 
+
+
+
+
+ https://github.com/ESP-Provisioning-BLE/esp_provisioning_ble
+
+
+#IMPORTANT!!!!!!
+
+#IMPORTANT!!!!!!
+
+
+
+
+
+
+
+
+
+
+
+
 ## Getting Started
 
 ### Create an EspProv Instance
